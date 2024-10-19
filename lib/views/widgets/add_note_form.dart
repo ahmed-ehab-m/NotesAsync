@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_state.dart';
+import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/widgets/custom_button.dart';
 import 'package:notes_app/views/widgets/custom_text_field.dart';
@@ -64,7 +65,9 @@ class _AddNoteFormState extends State<AddNoteForm> {
                         subtitle: subTitle!,
                         date: formattedCurrntDate,
                         color: Colors.blue.value);
+
                     BlocProvider.of<AddNoteCubit>(context).addNote((noteModel));
+                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});
