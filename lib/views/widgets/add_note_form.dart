@@ -5,6 +5,7 @@ import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_state.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/views/widgets/colors_list_view.dart';
 import 'package:notes_app/views/widgets/custom_button.dart';
 import 'package:notes_app/views/widgets/custom_text_field.dart';
 
@@ -50,28 +51,16 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 32,
           ),
+          const ColorsListView(),
+          const SizedBox(
+            height: 32,
+          ),
           BlocBuilder<AddNoteCubit, AddNoteState>(
             builder: (context, state) {
               return CustomButton(
                 isLoading: state is AddNoteLoading ? true : false,
                 onTap: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    var currnetDate = DateTime.now();
-                    var formattedCurrntDate =
-                        DateFormat.yMd().format(currnetDate);
-                    var noteModel = NoteModel(
-                        title: title!,
-                        subtitle: subTitle!,
-                        date: formattedCurrntDate,
-                        color: Colors.blue.value);
-
-                    BlocProvider.of<AddNoteCubit>(context).addNote((noteModel));
-                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-                  } else {
-                    autovalidateMode = AutovalidateMode.always;
-                    setState(() {});
-                  }
+                  validation(context);
                 },
               );
             },
@@ -82,5 +71,24 @@ class _AddNoteFormState extends State<AddNoteForm> {
         ],
       ),
     );
+  }
+
+  void validation(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      var currnetDate = DateTime.now();
+      var formattedCurrntDate = DateFormat.yMd().format(currnetDate);
+      var noteModel = NoteModel(
+          title: title!,
+          subtitle: subTitle!,
+          date: formattedCurrntDate,
+          color: Colors.blue.value);
+
+      BlocProvider.of<AddNoteCubit>(context).addNote((noteModel));
+      BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+    } else {
+      autovalidateMode = AutovalidateMode.always;
+      setState(() {});
+    }
   }
 }
