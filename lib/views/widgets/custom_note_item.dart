@@ -1,29 +1,28 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 
 class NoteItem extends StatefulWidget {
-  const NoteItem({super.key, required this.noteModel});
+  const NoteItem({super.key, required this.noteModel, this.showOptions});
   final NoteModel noteModel;
-
+  final showOptions;
   @override
   State<NoteItem> createState() => _NoteItemState();
 }
 
 class _NoteItemState extends State<NoteItem> {
-  bool _showOptions = false; // للتحكم في إظهار الأيقونات
-
-  void _toggleOptions() {
+  @override
+  bool iconSelected = false;
+  void _toggleIcon() {
     setState(() {
-      _showOptions = !_showOptions;
+      iconSelected = !iconSelected;
     });
   }
 
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _toggleOptions,
-      onDoubleTap: () {
+      onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -87,7 +86,7 @@ class _NoteItemState extends State<NoteItem> {
                 //       color: Colors.black,
                 //       size: 24,
                 //     )),
-                Spacer(),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -103,20 +102,23 @@ class _NoteItemState extends State<NoteItem> {
               ],
             ),
           ),
-          if (_showOptions)
+          if (widget.showOptions)
             Positioned(
               top: 8,
               right: 8,
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: Colors.blue,
-                    child: IconButton(
-                      icon: Icon(Icons.check_circle, color: Colors.white),
-                      onPressed: () {
-                        // فعل التثبيت
-                      },
-                    ),
+                    backgroundColor: Color(widget.noteModel.color),
+                    child: iconSelected
+                        ? IconButton(
+                            icon: const Icon(CupertinoIcons.check_mark_circled,
+                                color: Colors.amber),
+                            onPressed: _toggleIcon)
+                        : IconButton(
+                            icon: const Icon(CupertinoIcons.circle_fill,
+                                color: Colors.grey),
+                            onPressed: _toggleIcon),
                   ),
                 ],
               ),

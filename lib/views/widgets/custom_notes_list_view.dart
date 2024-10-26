@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_state.dart';
@@ -6,10 +7,23 @@ import 'package:notes_app/views/widgets/custom_note_item.dart';
 
 import '../../cubits/notes cubit/notes_cubit.dart';
 
-class CustomNotesListView extends StatelessWidget {
+class CustomNotesListView extends StatefulWidget {
   const CustomNotesListView({super.key});
 
   @override
+  State<CustomNotesListView> createState() => _CustomNotesListViewState();
+}
+
+class _CustomNotesListViewState extends State<CustomNotesListView> {
+  @override
+  OverlayEntry? _overlayEntry;
+  bool _showOptions = false;
+  void _toggleOptions() {
+    setState(() {
+      _showOptions = !_showOptions;
+    });
+  }
+
   Widget build(BuildContext context) {
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
@@ -29,21 +43,62 @@ class CustomNotesListView extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
-                // لضبط الطول تلقائياً حسب المحتوى
-                child: NoteItem(noteModel: notes[index]),
+                child: GestureDetector(
+                    onLongPress: () {
+                      _toggleOptions();
+                      showBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              padding: const EdgeInsets.only(
+                                  left: 24, top: 10, right: 24),
+                              height: 55,
+                              color: Colors.black,
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        CupertinoIcons.pin,
+                                      ),
+                                      Text('Pin'),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 24,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        CupertinoIcons.folder,
+                                      ),
+                                      Text('add to folder'),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 24,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        Icons.delete_outline,
+                                      ),
+                                      Text('Delete'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    },
+                    child: NoteItem(
+                      noteModel: notes[index],
+                      showOptions: _showOptions,
+                    )),
               );
             },
           ),
-
-          // child: ListView.builder(
-          //     itemCount: notes.length,
-          //     padding: EdgeInsets.zero,
-          //     itemBuilder: (context, index) {
-          //       return Padding(
-          //         padding: const EdgeInsets.symmetric(vertical: 4),
-          //         child: NoteItem(noteModel: notes[index]),
-          //       );
-          //     }),
         );
       },
     );
