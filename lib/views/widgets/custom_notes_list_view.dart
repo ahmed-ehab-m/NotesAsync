@@ -17,15 +17,33 @@ class CustomNotesListView extends StatelessWidget {
             BlocProvider.of<NotesCubit>(context).notes ?? [];
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          child: ListView.builder(
-              itemCount: notes.length,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: NoteItem(noteModel: notes[index]),
-                );
-              }),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // عدد الأعمدة في الشبكة
+              crossAxisSpacing: 8.0,
+              mainAxisSpacing: 8.0,
+              childAspectRatio: 0.7,
+            ),
+            itemCount: notes.length,
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                // لضبط الطول تلقائياً حسب المحتوى
+                child: NoteItem(noteModel: notes[index]),
+              );
+            },
+          ),
+
+          // child: ListView.builder(
+          //     itemCount: notes.length,
+          //     padding: EdgeInsets.zero,
+          //     itemBuilder: (context, index) {
+          //       return Padding(
+          //         padding: const EdgeInsets.symmetric(vertical: 4),
+          //         child: NoteItem(noteModel: notes[index]),
+          //       );
+          //     }),
         );
       },
     );
