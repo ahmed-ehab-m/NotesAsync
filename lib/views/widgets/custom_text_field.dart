@@ -25,15 +25,15 @@ class CustomTextField extends StatelessWidget {
           return null;
         }
       },
-      cursorColor: kPrimaryColor,
+      cursorColor: kSecondaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: text,
-        hintStyle: const TextStyle(color: kPrimaryColor),
+        hintStyle: const TextStyle(color: kSecondaryColor),
         border: buildBorder(),
         enabledBorder: buildBorder(),
         focusedBorder: buildBorder(
-          kPrimaryColor,
+          kSecondaryColor,
         ),
       ),
     );

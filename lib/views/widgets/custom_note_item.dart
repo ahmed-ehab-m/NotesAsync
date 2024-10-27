@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 
 class NoteItem extends StatefulWidget {
-  const NoteItem({super.key, required this.noteModel, this.showOptions});
+  const NoteItem({
+    super.key,
+    required this.noteModel,
+    // required this.showOptions,
+    // this.currentIndex = 0,
+  });
   final NoteModel noteModel;
-  final showOptions;
+  // final bool showOptions;
+  // final int currentIndex;
+
   @override
   State<NoteItem> createState() => _NoteItemState();
 }
@@ -14,6 +22,14 @@ class NoteItem extends StatefulWidget {
 class _NoteItemState extends State<NoteItem> {
   @override
   bool iconSelected = false;
+  // int noteIndex = 0;
+  // void noteSelected() {
+  //   if (noteIndex == widget.currentIndex) {
+  //     _toggleIcon();
+  //   }
+  // }
+
+  @override
   void _toggleIcon() {
     setState(() {
       iconSelected = !iconSelected;
@@ -68,7 +84,7 @@ class _NoteItemState extends State<NoteItem> {
                   padding: const EdgeInsets.only(left: 10, top: 10),
                   child: Text(
                     widget.noteModel.subtitle,
-                    maxLines: 6,
+                    maxLines: 9,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: Colors.grey,
@@ -102,7 +118,7 @@ class _NoteItemState extends State<NoteItem> {
               ],
             ),
           ),
-          if (widget.showOptions)
+          if (false)
             Positioned(
               top: 8,
               right: 8,
@@ -112,8 +128,9 @@ class _NoteItemState extends State<NoteItem> {
                     backgroundColor: Color(widget.noteModel.color),
                     child: iconSelected
                         ? IconButton(
-                            icon: const Icon(CupertinoIcons.check_mark_circled,
-                                color: Colors.amber),
+                            icon: const Icon(
+                                CupertinoIcons.check_mark_circled_solid,
+                                color: kPrimaryColor),
                             onPressed: _toggleIcon)
                         : IconButton(
                             icon: const Icon(CupertinoIcons.circle_fill,
