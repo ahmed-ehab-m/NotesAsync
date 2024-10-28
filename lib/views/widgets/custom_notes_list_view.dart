@@ -18,11 +18,11 @@ class _CustomNotesListViewState extends State<CustomNotesListView> {
   bool showOptions = false;
   // PersistentBottomSheetController? bottomSheetController;
   // bool isBottomSheetVisible = true;
-  // void _toggleOptions() {
-  //   setState(() {
-  //     showOptions = !showOptions;
-  //   });
-  // }
+  void _toggleOptions() {
+    setState(() {
+      showOptions = !showOptions;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +54,9 @@ class _CustomNotesListViewState extends State<CustomNotesListView> {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: GestureDetector(
-                  // onLongPress: _toggleOptions,
+                  onLongPress: _toggleOptions,
                   child: NoteItem(
+                    // showOptions: showOptions,
                     noteModel: notes[index],
                     icon: notes[index].pin
                         ? Icons.push_pin

@@ -134,14 +134,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  circular_menu:
-    dependency: "direct main"
-    description:
-      name: circular_menu
-      sha256: "2969127a4fcad1a1366e667925b4492f6dda94702b426ee2c15ab1a3f1fb060e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.0"
   clock:
     dependency: transitive
     description:
@@ -251,14 +243,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
-  flutter_staggered_grid_view:
-    dependency: "direct main"
-    description:
-      name: flutter_staggered_grid_view
-      sha256: "19e7abb550c96fbfeb546b23f3ff356ee7c59a019a651f8f102a4ba9b7349395"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -528,6 +512,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  pie_menu:
+    dependency: "direct main"
+    description:
+      name: pie_menu
+      sha256: "011ccddc6f71c51a766cd3daba445f9e0cba9a6003e8528340c3064a241a5a30"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.7"
   platform:
     dependency: transitive
     description:
@@ -629,14 +621,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
-  star_menu:
-    dependency: "direct main"
-    description:
-      name: star_menu
-      sha256: f29c7d255677c49ec2412ec2d17220d967f54b72b9e6afc5688fe122ea4d1d78
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.0.1"
   stream_channel:
     dependency: transitive
     description:
