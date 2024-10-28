@@ -11,7 +11,7 @@ class PinNotesCubit extends Cubit<PinNotesState> {
     note.pin = true;
     note.save();
     var notesBox = Hive.box<NoteModel>(kNotesBox);
-    pinNotes = notesBox.values.where((note) => note.pin = true).toList();
+    pinNotes = notesBox.values.where((note) => note.pin == true).toList();
     emit(PinNoteSuccess());
   }
 }

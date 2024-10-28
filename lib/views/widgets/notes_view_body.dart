@@ -43,6 +43,7 @@ class _NotesViewBodyState extends State<NotesViewBody> {
             SizedBox(
               height: 10,
             ),
+            // SizedBox(height: 350, child: CustomPinNotesView()),
             Expanded(child: CustomNotesListView()),
           ],
         ),

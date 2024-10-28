@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/pin%20_notes_cubit/pin_notes_cubit.dart';
 import 'package:notes_app/cubits/pin%20_notes_cubit/pin_notes_state.dart';
 import 'package:notes_app/models/note_model.dart';
-import 'package:notes_app/views/widgets/custom_note_item.dart';
 
 class CustomPinNotesView extends StatelessWidget {
   const CustomPinNotesView({super.key});
@@ -28,10 +27,10 @@ class CustomPinNotesView extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
-                child: NoteItem(
-                  noteModel: pinNotes[index],
-                  // showOptions: showOptions,
-                ),
+                // child: NoteItem(
+                //   noteModel: pinNotes[index],
+                //   // showOptions: showOptions,
+                // ),
               );
             },
           ),

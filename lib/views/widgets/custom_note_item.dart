@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/constants.dart';
+import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 
@@ -8,10 +10,16 @@ class NoteItem extends StatefulWidget {
   const NoteItem({
     super.key,
     required this.noteModel,
+    required this.onPressed,
+    required this.icon,
+    required this.color,
     // required this.showOptions,
     // this.currentIndex = 0,
   });
   final NoteModel noteModel;
+  final void Function()? onPressed;
+  final IconData icon;
+  final Color color;
   // final bool showOptions;
   // final int currentIndex;
 
@@ -22,6 +30,7 @@ class NoteItem extends StatefulWidget {
 class _NoteItemState extends State<NoteItem> {
   @override
   bool iconSelected = false;
+  Color color = kSecondaryColor;
   // int noteIndex = 0;
   // void noteSelected() {
   //   if (noteIndex == widget.currentIndex) {
@@ -92,16 +101,6 @@ class _NoteItemState extends State<NoteItem> {
                     ),
                   ),
                 ),
-                // IconButton(
-                //     onPressed: () {
-                //       noteModel.delete();
-                //       BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-                //     },
-                //     icon: const Icon(
-                //       FontAwesomeIcons.trash,
-                //       color: Colors.black,
-                //       size: 24,
-                //     )),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -118,24 +117,31 @@ class _NoteItemState extends State<NoteItem> {
               ],
             ),
           ),
-          if (false)
+          if (true)
             Positioned(
               top: 8,
               right: 8,
               child: Row(
                 children: [
+                  IconButton(
+                      onPressed: () {
+                        widget.noteModel.delete();
+                        BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.trash,
+                        color: kSecondaryColor,
+                        size: 24,
+                      )),
                   CircleAvatar(
                     backgroundColor: Color(widget.noteModel.color),
-                    child: iconSelected
-                        ? IconButton(
-                            icon: const Icon(
-                                CupertinoIcons.check_mark_circled_solid,
-                                color: kPrimaryColor),
-                            onPressed: _toggleIcon)
-                        : IconButton(
-                            icon: const Icon(CupertinoIcons.circle_fill,
-                                color: Colors.grey),
-                            onPressed: _toggleIcon),
+                    child: IconButton(
+                      icon: Icon(
+                        widget.icon,
+                        color: widget.color,
+                      ),
+                      onPressed: widget.onPressed,
+                    ),
                   ),
                 ],
               ),

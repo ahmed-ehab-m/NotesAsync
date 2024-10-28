@@ -10,6 +10,7 @@ class NotesCubit extends Cubit<NotesState> {
   fetchAllNotes() {
     var notesBox = Hive.box<NoteModel>(kNotesBox);
     notes = notesBox.values.toList();
+    notes?.sort((a, b) => (b.pin ? 1 : 0) - (a.pin ? 1 : 0));
     emit(NotesSuccess());
   }
 }

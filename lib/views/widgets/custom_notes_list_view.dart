@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_state.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/widgets/custom_note_item.dart';
@@ -17,11 +18,11 @@ class _CustomNotesListViewState extends State<CustomNotesListView> {
   bool showOptions = false;
   // PersistentBottomSheetController? bottomSheetController;
   // bool isBottomSheetVisible = true;
-  void _toggleOptions() {
-    setState(() {
-      showOptions = !showOptions;
-    });
-  }
+  // void _toggleOptions() {
+  //   setState(() {
+  //     showOptions = !showOptions;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,15 @@ class _CustomNotesListViewState extends State<CustomNotesListView> {
       builder: (context, state) {
         List<NoteModel> notes =
             BlocProvider.of<NotesCubit>(context).notes ?? [];
+        void togglePin(int index) async {
+          NoteModel note = notes[index];
+          note.pin = !note.pin;
+          await note.save();
+          setState(() {
+            BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+          }); // إعادة تحميل وفرز العناصر بعد التحديث
+        }
+
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: GridView.builder(
@@ -44,9 +54,14 @@ class _CustomNotesListViewState extends State<CustomNotesListView> {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: GestureDetector(
-                  onLongPress: _toggleOptions,
+                  // onLongPress: _toggleOptions,
                   child: NoteItem(
                     noteModel: notes[index],
+                    icon: notes[index].pin
+                        ? Icons.push_pin
+                        : Icons.push_pin_outlined,
+                    color: notes[index].pin ? kPrimaryColor : kSecondaryColor,
+                    onPressed: () => togglePin(index),
                     // showOptions: showOptions,
                   ),
                 ),
