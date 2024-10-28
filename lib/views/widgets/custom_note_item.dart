@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/constants.dart';
-import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 import 'package:pie_menu/pie_menu.dart';
 
 class NoteItem extends StatefulWidget {
-  const NoteItem({
-    super.key,
-    required this.noteModel,
-    required this.onPressed,
-    required this.icon,
-    required this.color,
-    // required this.showOptions,
-    // this.currentIndex = 0,
-  });
+  const NoteItem(
+      {super.key,
+      required this.noteModel,
+      required this.onPressed,
+      required this.icon,
+      required this.color,
+      required this.onSelectPin,
+      required this.status,
+      // required this.onSelectDelete,
+      required this.showPin
+      // this.currentIndex = 0,
+      });
   final NoteModel noteModel;
   final void Function()? onPressed;
+  final dynamic Function() onSelectPin;
+  // final dynamic Function() onSelectDelete;
   final IconData icon;
   final Color color;
-  // final bool showOptions;
+  final String status;
+  final bool showPin;
   // final int currentIndex;
 
   @override
@@ -71,7 +74,7 @@ class _NoteItemState extends State<NoteItem> {
       //   ),
       // );
       child: PieMenu(
-        theme: PieTheme(
+        theme: const PieTheme(
             buttonThemeHovered: PieButtonTheme(
                 backgroundColor: kPrimaryColor, iconColor: Colors.white),
             buttonTheme: PieButtonTheme(
@@ -79,20 +82,21 @@ class _NoteItemState extends State<NoteItem> {
         // onPressed: () => print('pressed'),
         actions: [
           PieAction(
-            tooltip: const Text('Pin'),
-            onSelect: () => print('Pinned'),
-            child: const Icon(
-              Icons.push_pin,
+            tooltip: Text(widget.status),
+            onSelect: widget.onSelectPin,
+            child: Icon(
+              widget.icon,
             ), // Can be any widget
           ),
-          PieAction(
-            tooltip: const Text('Delete'),
-            onSelect: () => print('Deleted'),
-            child: const Icon(
-              FontAwesomeIcons.trash,
-              color: Colors.red,
-            ), // Can be any widget
-          ),
+          // PieAction(
+          //   tooltip: const Text('Delete'),
+          //   onSelect:    widget.noteModel.delete();
+          //                 BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+          //   child: const Icon(
+          //     FontAwesomeIcons.trash,
+          //     color: Colors.red,
+          //   ), // Can be any widget
+          // ),
         ],
         child: Stack(
           children: [
@@ -142,31 +146,27 @@ class _NoteItemState extends State<NoteItem> {
                 ],
               ),
             ),
-            if (false)
+            if (widget.showPin)
               Positioned(
                 top: 8,
                 right: 8,
                 child: Row(
                   children: [
-                    IconButton(
-                        onPressed: () {
-                          widget.noteModel.delete();
-                          BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.trash,
-                          color: kSecondaryColor,
-                          size: 24,
-                        )),
+                    // IconButton(
+                    //     onPressed: () {
+                    //       widget.noteModel.delete();
+                    //       BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                    //     },
+                    //     icon: Icon(
+                    //       FontAwesomeIcons.trash,
+                    //       color: kSecondaryColor,
+                    //       size: 24,
+                    //     )),
                     CircleAvatar(
                       backgroundColor: Color(widget.noteModel.color),
                       child: IconButton(
-                        icon: Icon(
-                          widget.icon,
-                          color: widget.color,
-                        ),
-                        onPressed: widget.onPressed,
-                      ),
+                          icon: Icon(Icons.push_pin, color: kPrimaryColor),
+                          onPressed: widget.onPressed),
                     ),
                   ],
                 ),
