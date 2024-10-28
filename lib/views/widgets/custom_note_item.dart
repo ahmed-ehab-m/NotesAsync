@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/constants.dart';
+import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 import 'package:pie_menu/pie_menu.dart';
@@ -88,15 +91,16 @@ class _NoteItemState extends State<NoteItem> {
               widget.icon,
             ), // Can be any widget
           ),
-          // PieAction(
-          //   tooltip: const Text('Delete'),
-          //   onSelect:    widget.noteModel.delete();
-          //                 BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-          //   child: const Icon(
-          //     FontAwesomeIcons.trash,
-          //     color: Colors.red,
-          //   ), // Can be any widget
-          // ),
+          PieAction(
+            tooltip: const Text('Delete'),
+            onSelect: () {
+              widget.noteModel.delete();
+              BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+            },
+            child: const Icon(
+              FontAwesomeIcons.trash,
+            ), // Can be any widget
+          ),
         ],
         child: Stack(
           children: [
