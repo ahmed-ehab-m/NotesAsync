@@ -10,8 +10,9 @@ import '../../cubits/notes cubit/notes_cubit.dart';
 class CustomNotesGridView extends StatefulWidget {
   const CustomNotesGridView({
     super.key,
+    this.pattern,
   });
-
+  final String? pattern;
   @override
   State<CustomNotesGridView> createState() => _CustomNotesGridViewState();
 }
@@ -76,6 +77,15 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
                     },
                     status: notes[index].pin ? 'Pinned' : 'Pin',
                     showPin: notes[index].pin ? true : false,
+                    pattern: widget.pattern,
+                    textTitle: _buildHighlightedTextTitle(
+                        notes[index].title, widget.pattern ?? ''),
+                    textSubTitle: _buildHighlightedTextSubTitle(
+                        notes[index].subtitle, widget.pattern ?? ''),
+                    // textStyleTitle: highlightedText(
+                    //     notes[index].title, widget.pattern ?? ''),
+                    // textStyleSubTitle: highlightedText(
+                    //     notes[index].subtitle, widget.pattern ?? ''),
                   ),
                 ),
               );
@@ -83,6 +93,135 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildHighlightedTextTitle(String text, String pattern) {
+    if (pattern.isEmpty) {
+      return Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
+          // color: Colors.black,
+          fontSize: 26,
+          fontWeight: FontWeight.w600,
+        ),
+      ); // إرجاع النص كما هو إذا لم يكن هناك نمط بحث
+    }
+
+    final regExp = RegExp(RegExp.escape(pattern), caseSensitive: false);
+    final matches = regExp.allMatches(text);
+    if (matches.isEmpty) {
+      return Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
+          // color: Colors.black,
+          fontSize: 26,
+          fontWeight: FontWeight.w600,
+        ),
+      ); // إرجاع النص كما هو إذا لم يكن هناك تطابق
+    }
+
+    List<TextSpan> spans = [];
+    int lastMatchEnd = 0;
+
+    for (final match in matches) {
+      if (match.start != lastMatchEnd) {
+        spans.add(TextSpan(
+          text: text.substring(lastMatchEnd, match.start),
+          style: const TextStyle(
+            // color: Colors.black,
+            fontSize: 26,
+            fontWeight: FontWeight.w600,
+          ),
+        ));
+      }
+      spans.add(TextSpan(
+        text: text.substring(match.start, match.end),
+        style: TextStyle(
+            color: kPrimaryColor, fontWeight: FontWeight.w600, fontSize: 26),
+      ));
+      lastMatchEnd = match.end;
+    }
+
+    if (lastMatchEnd != text.length) {
+      spans.add(TextSpan(
+        text: text.substring(lastMatchEnd),
+        style: const TextStyle(
+          // color: Colors.black,
+          fontSize: 26,
+          fontWeight: FontWeight.w600,
+        ),
+      ));
+    }
+
+    return RichText(
+      text: TextSpan(children: spans),
+    );
+  }
+
+  Widget _buildHighlightedTextSubTitle(String text, String pattern) {
+    if (pattern.isEmpty) {
+      return Text(
+        text,
+        maxLines: 9,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
+          color: Colors.grey,
+          fontSize: 14,
+        ),
+      ); // إرجاع النص كما هو إذا لم يكن هناك نمط بحث
+    }
+
+    final regExp = RegExp(RegExp.escape(pattern), caseSensitive: false);
+    final matches = regExp.allMatches(text);
+    if (matches.isEmpty) {
+      return Text(
+        text,
+        maxLines: 9,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
+          color: Colors.grey,
+          fontSize: 14,
+        ),
+      );
+    }
+
+    List<TextSpan> spans = [];
+    int lastMatchEnd = 0;
+
+    for (final match in matches) {
+      if (match.start != lastMatchEnd) {
+        spans.add(TextSpan(
+          text: text.substring(lastMatchEnd, match.start),
+          style: const TextStyle(
+            color: Colors.grey,
+            fontSize: 14,
+          ),
+        ));
+      }
+      spans.add(TextSpan(
+        text: text.substring(match.start, match.end),
+        style: TextStyle(color: kPrimaryColor, fontSize: 14),
+      ));
+      lastMatchEnd = match.end;
+    }
+
+    if (lastMatchEnd != text.length) {
+      spans.add(TextSpan(
+        text: text.substring(lastMatchEnd),
+        style: const TextStyle(
+          color: Colors.grey,
+          fontSize: 14,
+        ),
+      ));
+    }
+
+    return RichText(
+      text: TextSpan(children: spans),
     );
   }
 }

@@ -9,15 +9,19 @@ import 'package:notes_app/views/widgets/pin_icon.dart';
 import 'package:pie_menu/pie_menu.dart';
 
 class NoteItem extends StatefulWidget {
-  const NoteItem(
-      {super.key,
-      required this.noteModel,
-      required this.onPressed,
-      required this.icon,
-      required this.color,
-      required this.onSelectPin,
-      required this.status,
-      required this.showPin});
+  const NoteItem({
+    super.key,
+    required this.noteModel,
+    required this.onPressed,
+    required this.icon,
+    required this.color,
+    required this.onSelectPin,
+    required this.status,
+    required this.showPin,
+    this.pattern,
+    required this.textTitle,
+    required this.textSubTitle,
+  });
   final NoteModel noteModel;
   final void Function()? onPressed;
   final dynamic Function() onSelectPin;
@@ -25,6 +29,10 @@ class NoteItem extends StatefulWidget {
   final Color color;
   final String status;
   final bool showPin;
+  final String? pattern;
+  final Widget textTitle;
+  final Widget textSubTitle;
+
   @override
   State<NoteItem> createState() => _NoteItemState();
 }
@@ -76,28 +84,10 @@ class _NoteItemState extends State<NoteItem> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.noteModel.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      // color: Colors.black,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  widget.textTitle,
                   Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 10),
-                    child: Text(
-                      widget.noteModel.subtitle,
-                      maxLines: 9,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
+                      padding: const EdgeInsets.only(left: 10, top: 10),
+                      child: widget.textSubTitle),
                   const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

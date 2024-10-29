@@ -9,6 +9,7 @@ class NotesViewBody extends StatefulWidget {
   const NotesViewBody({
     super.key,
   });
+
   @override
   State<NotesViewBody> createState() => _NotesViewBodyState();
 }
@@ -20,6 +21,8 @@ class _NotesViewBodyState extends State<NotesViewBody> {
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     super.initState();
   }
+
+  String? searchPattern = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +41,10 @@ class _NotesViewBodyState extends State<NotesViewBody> {
           CustomTextField(
             onChanged: (value) {
               setState(() {
-                BlocProvider.of<NotesCubit>(context)
-                    .fetchAllNotes(pattern: value);
+                searchPattern = value;
               });
+              BlocProvider.of<NotesCubit>(context)
+                  .fetchAllNotes(pattern: value);
             },
 
             // widget.onPressedSearch;
@@ -51,7 +55,10 @@ class _NotesViewBodyState extends State<NotesViewBody> {
             height: 10,
           ),
           // SizedBox(height: 350, child: CustomPinNotesView()),
-          Expanded(child: CustomNotesGridView()),
+          Expanded(
+              child: CustomNotesGridView(
+            pattern: searchPattern,
+          )),
         ],
       ),
     );
