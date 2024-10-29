@@ -5,6 +5,7 @@ import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
+import 'package:notes_app/views/widgets/pin_icon.dart';
 import 'package:pie_menu/pie_menu.dart';
 
 class NoteItem extends StatefulWidget {
@@ -16,42 +17,21 @@ class NoteItem extends StatefulWidget {
       required this.color,
       required this.onSelectPin,
       required this.status,
-      // required this.onSelectDelete,
-      required this.showPin
-      // this.currentIndex = 0,
-      });
+      required this.showPin});
   final NoteModel noteModel;
   final void Function()? onPressed;
   final dynamic Function() onSelectPin;
-  // final dynamic Function() onSelectDelete;
   final IconData icon;
   final Color color;
   final String status;
   final bool showPin;
-  // final int currentIndex;
-
   @override
   State<NoteItem> createState() => _NoteItemState();
 }
 
 class _NoteItemState extends State<NoteItem> {
   @override
-  bool iconSelected = false;
-  Color color = kSecondaryColor;
-  // int noteIndex = 0;
-  // void noteSelected() {
-  //   if (noteIndex == widget.currentIndex) {
-  //     _toggleIcon();
-  //   }
-  // }
-
   @override
-  void _toggleIcon() {
-    setState(() {
-      iconSelected = !iconSelected;
-    });
-  }
-
   Widget build(BuildContext context) {
     return GestureDetector(
       onDoubleTap: () {
@@ -66,22 +46,8 @@ class _NoteItemState extends State<NoteItem> {
           ),
         );
       },
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) {
-      //       return EditNoteView(
-      //         noteModel: noteModel,
-      //       );
-      //     },
-      //   ),
-      // );
       child: PieMenu(
-        theme: const PieTheme(
-            buttonThemeHovered: PieButtonTheme(
-                backgroundColor: kPrimaryColor, iconColor: Colors.white),
-            buttonTheme: PieButtonTheme(
-                backgroundColor: Colors.white, iconColor: kPrimaryColor)),
+        theme: pieTheme(),
         // onPressed: () => print('pressed'),
         actions: [
           PieAction(
@@ -97,9 +63,7 @@ class _NoteItemState extends State<NoteItem> {
               widget.noteModel.delete();
               BlocProvider.of<NotesCubit>(context).fetchAllNotes();
             },
-            child: const Icon(
-              FontAwesomeIcons.trash,
-            ), // Can be any widget
+            child: const Icon(FontAwesomeIcons.trashCan), // Can be any widget
           ),
         ],
         child: Stack(
@@ -150,77 +114,18 @@ class _NoteItemState extends State<NoteItem> {
                 ],
               ),
             ),
-            if (widget.showPin)
-              Positioned(
-                top: 8,
-                right: 8,
-                child: Row(
-                  children: [
-                    // IconButton(
-                    //     onPressed: () {
-                    //       widget.noteModel.delete();
-                    //       BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-                    //     },
-                    //     icon: Icon(
-                    //       FontAwesomeIcons.trash,
-                    //       color: kSecondaryColor,
-                    //       size: 24,
-                    //     )),
-                    CircleAvatar(
-                      backgroundColor: Color(widget.noteModel.color),
-                      child: IconButton(
-                          icon: Icon(Icons.push_pin, color: kPrimaryColor),
-                          onPressed: widget.onPressed),
-                    ),
-                  ],
-                ),
-              ),
+            if (widget.showPin) pinIcon(widget: widget),
           ],
         ),
       ),
     );
   }
+
+  PieTheme pieTheme() {
+    return const PieTheme(
+        buttonThemeHovered: PieButtonTheme(
+            backgroundColor: kPrimaryColor, iconColor: Colors.white),
+        buttonTheme: PieButtonTheme(
+            backgroundColor: Colors.white, iconColor: kPrimaryColor));
+  }
 }
-
-
-
-// ListTile(
-//               title: Text(
-//                 noteModel.title,
-//                 style: TextStyle(
-//                   color: Colors.black,
-//                   fontSize: 26,
-//                 ),
-//               ),
-//               subtitle: Padding(
-//                 padding: const EdgeInsets.only(top: 16, bottom: 16),
-//                 child: Text(
-//                   noteModel.subtitle,
-//                   style: TextStyle(
-//                     color:
-//                         const Color.fromARGB(255, 100, 32, 32).withOpacity(0.5),
-//                     fontSize: 18,
-//                   ),
-//                 ),
-//               ),
-//               trailing: IconButton(
-//                   onPressed: () {
-//                     noteModel.delete();
-//                     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-//                   },
-//                   icon: const Icon(
-//                     FontAwesomeIcons.trash,
-//                     color: Colors.black,
-//                     size: 24,
-//                   )),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.only(right: 24),
-//               child: Text(
-//                 noteModel.date,
-//                 style: TextStyle(
-//                   color: Colors.black.withOpacity(0.5),
-//                   fontSize: 16,
-//                 ),
-//               ),
-//             ),
