@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/constants.dart';
 
@@ -7,11 +8,14 @@ class CustomTextField extends StatelessWidget {
       required this.text,
       this.maxLines = 1,
       this.onSaved,
-      this.onChanged});
+      this.onChanged,
+      this.onPressedSearch});
+
   final String text;
   final int maxLines;
   final void Function(String?)? onSaved;
   final Function(String?)? onChanged;
+  final void Function()? onPressedSearch;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -28,6 +32,8 @@ class CustomTextField extends StatelessWidget {
       cursorColor: kSecondaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
+        prefixIcon: IconButton(
+            onPressed: onPressedSearch, icon: Icon(CupertinoIcons.search)),
         hintText: text,
         hintStyle: const TextStyle(color: kSecondaryColor),
         border: buildBorder(),

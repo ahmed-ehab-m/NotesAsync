@@ -7,10 +7,23 @@ import 'package:notes_app/models/note_model.dart';
 class NotesCubit extends Cubit<NotesState> {
   NotesCubit() : super(NotesInitial());
   List<NoteModel>? notes;
-  fetchAllNotes() {
+  List<NoteModel>? filteredNotes;
+  fetchAllNotes({String? pattern}) {
     var notesBox = Hive.box<NoteModel>(kNotesBox);
     notes = notesBox.values.toList();
     notes?.sort((a, b) => (b.pin ? 1 : 0) - (a.pin ? 1 : 0));
+    if (pattern != null && pattern.isNotEmpty) {
+      filteredNotes = notes?.where((note) {
+        final titleLower = note.title.toLowerCase();
+        final contentLower = note.subtitle.toLowerCase();
+        final patternLower = pattern.toLowerCase();
+
+        return titleLower.contains(patternLower) ||
+            contentLower.contains(patternLower);
+      }).toList();
+    } else {
+      filteredNotes = notes;
+    }
     emit(NotesSuccess());
   }
 }

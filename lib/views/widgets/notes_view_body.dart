@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/views/widgets/custom_app_bar.dart';
-import 'package:notes_app/views/widgets/custom_notes_list_view.dart';
+import 'package:notes_app/views/widgets/custom_notes_grid_view.dart';
 import 'package:notes_app/views/widgets/custom_text_field.dart';
 
 class NotesViewBody extends StatefulWidget {
-  const NotesViewBody({super.key});
-
+  const NotesViewBody({
+    super.key,
+  });
   @override
   State<NotesViewBody> createState() => _NotesViewBodyState();
 }
@@ -22,26 +23,35 @@ class _NotesViewBodyState extends State<NotesViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
-          CustomAppBar(title: 'My Notes', icon: Icons.settings),
-          SizedBox(
+          const CustomAppBar(title: 'My Notes', icon: Icons.settings),
+          const SizedBox(
             height: 15,
           ),
           CustomTextField(
+            onChanged: (value) {
+              setState(() {
+                BlocProvider.of<NotesCubit>(context)
+                    .fetchAllNotes(pattern: value);
+              });
+            },
+
+            // widget.onPressedSearch;
+
             text: 'Search',
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           // SizedBox(height: 350, child: CustomPinNotesView()),
-          Expanded(child: CustomNotesListView()),
+          Expanded(child: CustomNotesGridView()),
         ],
       ),
     );

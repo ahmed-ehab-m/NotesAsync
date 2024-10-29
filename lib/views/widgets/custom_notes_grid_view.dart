@@ -7,14 +7,16 @@ import 'package:notes_app/views/widgets/custom_note_item.dart';
 
 import '../../cubits/notes cubit/notes_cubit.dart';
 
-class CustomNotesListView extends StatefulWidget {
-  const CustomNotesListView({super.key});
+class CustomNotesGridView extends StatefulWidget {
+  const CustomNotesGridView({
+    super.key,
+  });
 
   @override
-  State<CustomNotesListView> createState() => _CustomNotesListViewState();
+  State<CustomNotesGridView> createState() => _CustomNotesGridViewState();
 }
 
-class _CustomNotesListViewState extends State<CustomNotesListView> {
+class _CustomNotesGridViewState extends State<CustomNotesGridView> {
   // bool showOptions = false;
   // PersistentBottomSheetController? bottomSheetController;
   // bool isBottomSheetVisible = true;
@@ -29,7 +31,14 @@ class _CustomNotesListViewState extends State<CustomNotesListView> {
     return BlocBuilder<NotesCubit, NotesState>(
       builder: (context, state) {
         List<NoteModel> notes =
-            BlocProvider.of<NotesCubit>(context).notes ?? [];
+            BlocProvider.of<NotesCubit>(context).filteredNotes ?? [];
+        // void searchNote() {
+        //   setState(() {
+        //     BlocProvider.of<NotesCubit>(context)
+        //         .fetchAllNotes(pattern: widget.pattern);
+        //   });
+        // }
+
         void togglePin(int index) async {
           NoteModel note = notes[index];
           note.pin = !note.pin;
