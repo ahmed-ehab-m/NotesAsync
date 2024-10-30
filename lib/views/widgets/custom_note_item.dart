@@ -41,8 +41,9 @@ class _NoteItemState extends State<NoteItem> {
   @override
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onDoubleTap: () {
+    return PieMenu(
+      theme: pieTheme(),
+      onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -54,59 +55,55 @@ class _NoteItemState extends State<NoteItem> {
           ),
         );
       },
-      child: PieMenu(
-        theme: pieTheme(),
-        // onPressed: () => print('pressed'),
-        actions: [
-          PieAction(
-            tooltip: Text(widget.status),
-            onSelect: widget.onSelectPin,
-            child: Icon(
-              widget.icon,
-            ), // Can be any widget
-          ),
-          PieAction(
-            tooltip: const Text('Delete'),
-            onSelect: () {
-              widget.noteModel.delete();
-              BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-            },
-            child: const Icon(FontAwesomeIcons.trashCan), // Can be any widget
-          ),
-        ],
-        child: Stack(
-          children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-              decoration: BoxDecoration(
-                  color: Color(widget.noteModel.color),
-                  borderRadius: BorderRadius.circular(16)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  widget.textTitle,
-                  Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 10),
-                      child: widget.textSubTitle),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        widget.noteModel.date,
-                        style: TextStyle(
-                          color: Colors.grey.withOpacity(0.5),
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            if (widget.showPin) pinIcon(widget: widget),
-          ],
+      actions: [
+        PieAction(
+          tooltip: Text(widget.status),
+          onSelect: widget.onSelectPin,
+          child: Icon(
+            widget.icon,
+          ), // Can be any widget
         ),
+        PieAction(
+          tooltip: const Text('Delete'),
+          onSelect: () {
+            widget.noteModel.delete();
+            BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+          },
+          child: const Icon(FontAwesomeIcons.trashCan), // Can be any widget
+        ),
+      ],
+      child: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+            decoration: BoxDecoration(
+                color: Color(widget.noteModel.color),
+                borderRadius: BorderRadius.circular(16)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                widget.textTitle,
+                Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    child: widget.textSubTitle),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      widget.noteModel.date,
+                      style: TextStyle(
+                        color: Colors.grey.withOpacity(0.5),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          if (widget.showPin) pinIcon(widget: widget),
+        ],
       ),
     );
   }

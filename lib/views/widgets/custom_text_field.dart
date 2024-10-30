@@ -9,13 +9,15 @@ class CustomTextField extends StatelessWidget {
       this.maxLines = 1,
       this.onSaved,
       this.onChanged,
-      this.onPressedSearch});
+      this.onPressedSearch,
+      this.showIcon = false});
 
   final String text;
   final int maxLines;
   final void Function(String?)? onSaved;
   final Function(String?)? onChanged;
   final void Function()? onPressedSearch;
+  final bool showIcon;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -32,8 +34,10 @@ class CustomTextField extends StatelessWidget {
       cursorColor: kSecondaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
-        prefixIcon: IconButton(
-            onPressed: onPressedSearch, icon: Icon(CupertinoIcons.search)),
+        prefixIcon: showIcon
+            ? IconButton(
+                onPressed: onPressedSearch, icon: Icon(CupertinoIcons.search))
+            : null,
         hintText: text,
         hintStyle: const TextStyle(color: kSecondaryColor),
         border: buildBorder(),
