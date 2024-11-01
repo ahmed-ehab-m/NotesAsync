@@ -33,7 +33,7 @@ class NotesView extends StatelessWidget {
 
   PreferredSize appBar(BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(50),
+      preferredSize: Size.fromHeight(40),
       child: Padding(
         padding: EdgeInsets.only(left: 8, right: 18),
         child: customAppBar(
