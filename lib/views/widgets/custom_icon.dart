@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/constants.dart';
 
 class CustomIcon extends StatelessWidget {
-  const CustomIcon({super.key, required this.icon, this.onPressed});
+  const CustomIcon(
+      {super.key, required this.icon, this.onPressed, this.iconColor});
   final IconData icon;
   final void Function()? onPressed;
+  final Color? iconColor;
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: Icon(
+    return GestureDetector(
+      onTap: onPressed,
+      child: Icon(
         icon,
-        size: 28,
-        color: kSecondaryColor,
+        color: iconColor,
       ),
     );
   }

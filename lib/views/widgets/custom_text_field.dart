@@ -34,6 +34,8 @@ class CustomTextField extends StatelessWidget {
       cursorColor: kSecondaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
+        fillColor: Colors.grey.withOpacity(0.1),
+        filled: true,
         prefixIcon: showIcon
             ? IconButton(
                 onPressed: onPressedSearch, icon: Icon(CupertinoIcons.search))
@@ -51,10 +53,8 @@ class CustomTextField extends StatelessWidget {
 
   OutlineInputBorder buildBorder([color]) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide: BorderSide(
-        color: color ?? Colors.white,
-      ),
+      borderRadius: BorderRadius.circular(15),
+      borderSide: BorderSide.none,
     );
   }
 }

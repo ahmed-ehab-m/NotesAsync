@@ -11,3 +11,7 @@ List<Color> kColors = const [
   Color(0xffF4D35E),
   Color(0xffF78764),
 ];
+const int KsFontSize = 10;
+const int KmFontSize = 14;
+const int KlFontSize = 18;
+const int KhFontSize = 20;

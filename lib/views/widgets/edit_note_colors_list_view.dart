@@ -4,8 +4,10 @@ import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/widgets/color_item.dart';
 
 class EditNoteColorsListView extends StatefulWidget {
-  const EditNoteColorsListView({super.key, required this.noteModel});
+  const EditNoteColorsListView(
+      {super.key, required this.noteModel, required this.onChangeColor});
   final NoteModel noteModel;
+  final void Function(Color) onChangeColor;
   @override
   State<EditNoteColorsListView> createState() => _EditNoteColorsListViewState();
 }
@@ -31,6 +33,7 @@ class _EditNoteColorsListViewState extends State<EditNoteColorsListView> {
                 currentIndex = index;
                 widget.noteModel.color = kColors[index].value;
                 setState(() {});
+                widget.onChangeColor(kColors[index]); //
               },
               child: ColorItem(
                 isActive: currentIndex == index,
