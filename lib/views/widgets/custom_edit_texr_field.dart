@@ -8,17 +8,23 @@ class CustomEditTextField extends StatelessWidget {
     this.maxLines = 1,
     this.onChanged,
     required this.color,
+    required this.fontSize,
   });
 
   final String? text;
   final int maxLines;
   final Function(String?)? onChanged;
   final Color color;
+  final double fontSize;
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController(text: text);
     return TextFormField(
-      controller: controller, /////////////////////////////////////////////
+      controller: controller,
+      style: TextStyle(
+        fontSize: fontSize,
+      ),
+      /////////////////////////////////////////////
       cursorColor: kSecondaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
