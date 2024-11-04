@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.19.0
   pie_menu: ^3.2.7
   shared_preferences: ^2.3.2
+  awesome_snackbar_content: ^0.1.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -170,7 +170,6 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
         maxLines: 9,
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(
-          color: Colors.grey,
           fontSize: 14,
         ),
       ); // إرجاع النص كما هو إذا لم يكن هناك نمط بحث
@@ -184,7 +183,6 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
         maxLines: 9,
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(
-          color: Colors.grey,
           fontSize: 14,
         ),
       );
@@ -198,7 +196,6 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
         spans.add(TextSpan(
           text: text.substring(lastMatchEnd, match.start),
           style: const TextStyle(
-            color: Colors.grey,
             fontSize: 14,
           ),
         ));
@@ -214,7 +211,6 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
       spans.add(TextSpan(
         text: text.substring(lastMatchEnd),
         style: const TextStyle(
-          color: Colors.grey,
           fontSize: 14,
         ),
       ));

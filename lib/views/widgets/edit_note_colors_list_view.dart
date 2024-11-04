@@ -36,6 +36,7 @@ class _EditNoteColorsListViewState extends State<EditNoteColorsListView> {
                 widget.onChangeColor(kColors[index]); //
               },
               child: ColorItem(
+                // backgroundColor: BlocProvider.of<ChangeThemeCubit>(context) ,
                 isActive: currentIndex == index,
                 color: kColors[index],
               ),

@@ -93,7 +93,7 @@ class _NoteItemState extends State<NoteItem> {
                     Text(
                       widget.noteModel.date,
                       style: TextStyle(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.grey,
                         fontSize: 16,
                       ),
                     ),

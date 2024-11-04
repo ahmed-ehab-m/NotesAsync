@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
         Row(
           children: [
             SizedBox(
-              width: showPrefixIcon ? 50 : 0,
+              width: showPrefixIcon ? 70 : 0,
             ),
             Text(
               title,

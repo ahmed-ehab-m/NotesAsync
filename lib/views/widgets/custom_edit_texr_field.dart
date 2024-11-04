@@ -21,6 +21,7 @@ class CustomEditTextField extends StatelessWidget {
     final TextEditingController controller = TextEditingController(text: text);
     return TextFormField(
       controller: controller,
+      onChanged: onChanged,
       style: TextStyle(
         fontSize: fontSize,
       ),

@@ -9,11 +9,15 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
     emit(ChangeThemeSuccess());
   }
   final hour = DateTime.now().hour;
-
+  Color color = Colors.white;
   Brightness theme = Brightness.dark;
 
   Brightness defaultTheme() {
     return hour >= 5 && hour < 18 ? Brightness.light : Brightness.dark;
+  }
+
+  Color defaultColor() {
+    return hour >= 5 && hour < 18 ? Colors.grey : Colors.white;
   }
 
   Future loadTheme() async {
@@ -26,12 +30,15 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
     switch (themeType) {
       case 1:
         theme = Brightness.light;
+        color = Colors.grey;
         break;
       case 2:
         theme = Brightness.dark;
+        color = Colors.white;
         break;
       case 3:
         theme = defaultTheme();
+        color = defaultColor();
         break;
     }
     emit(ChangeThemeSuccess());
