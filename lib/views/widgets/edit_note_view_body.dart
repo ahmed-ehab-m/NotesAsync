@@ -8,6 +8,7 @@ import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/widgets/custom_app_bar.dart';
 import 'package:notes_app/views/widgets/custom_edit_texr_field.dart';
+import 'package:notes_app/views/widgets/custom_snack_bar.dart';
 import 'package:notes_app/views/widgets/edit_note_colors_list_view.dart';
 
 class EditNoteViewBody extends StatefulWidget {
@@ -59,6 +60,10 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                     widget.noteModel.delete();
                     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
                     Navigator.pop(context);
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(CustomSnackBar()
+                          .buildSnackBar(message: 'note deleted'));
                   },
                   icon: FontAwesomeIcons.check,
                   onPressed: () async {

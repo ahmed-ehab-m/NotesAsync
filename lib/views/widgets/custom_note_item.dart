@@ -5,6 +5,7 @@ import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
+import 'package:notes_app/views/widgets/custom_snack_bar.dart';
 import 'package:notes_app/views/widgets/pin_icon.dart';
 import 'package:pie_menu/pie_menu.dart';
 
@@ -68,6 +69,11 @@ class _NoteItemState extends State<NoteItem> {
           onSelect: () {
             widget.noteModel.delete();
             BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                  CustomSnackBar().buildSnackBar(message: 'note deleted'));
           },
           child: const Icon(FontAwesomeIcons.trashCan), // Can be any widget
         ),
