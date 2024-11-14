@@ -7,8 +7,8 @@ class ChangeFontSizeCubit extends Cubit<ChangeFontSizeState> {
     defaultFont();
   }
 
-  double fontSize = 10;
-
+  double titleFontSize = 10;
+  double contentFontSize = 10;
   Future<void> defaultFont() async {
     final prefs = await SharedPreferences.getInstance();
     final savedFont = prefs.getInt('fontIndex') ?? 2;
@@ -18,16 +18,20 @@ class ChangeFontSizeCubit extends Cubit<ChangeFontSizeState> {
   Future<void> changeFontSize(int fontNo, {bool save = true}) async {
     switch (fontNo) {
       case 1:
-        fontSize = 10;
+        titleFontSize = 15;
+        contentFontSize = 10;
         break;
       case 2:
-        fontSize = 20;
+        titleFontSize = 25;
+        contentFontSize = 20;
         break;
       case 3:
-        fontSize = 30;
+        titleFontSize = 35;
+        contentFontSize = 30;
         break;
       case 4:
-        fontSize = 40;
+        titleFontSize = 45;
+        contentFontSize = 40;
         break;
     }
     if (save) {

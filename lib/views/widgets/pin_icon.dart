@@ -13,8 +13,8 @@ class pinIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 8,
-      right: 8,
+      bottom: 8,
+      right: 60,
       child: Row(
         children: [
           CircleAvatar(

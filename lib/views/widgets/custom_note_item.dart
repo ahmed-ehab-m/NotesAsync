@@ -65,7 +65,9 @@ class _NoteItemState extends State<NoteItem> {
           ), // Can be any widget
         ),
         PieAction(
-          tooltip: const Text('Delete'),
+          tooltip: const Text(
+            'Delete',
+          ),
           onSelect: () {
             widget.noteModel.delete();
             BlocProvider.of<NotesCubit>(context).fetchAllNotes();
@@ -94,13 +96,13 @@ class _NoteItemState extends State<NoteItem> {
                     child: widget.textSubTitle),
                 const Spacer(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       widget.noteModel.date,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
                       ),
                     ),
                   ],
@@ -115,10 +117,18 @@ class _NoteItemState extends State<NoteItem> {
   }
 
   PieTheme pieTheme() {
-    return const PieTheme(
-        buttonThemeHovered: PieButtonTheme(
+    return PieTheme(
+        tooltipTextStyle: TextStyle(
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.white
+                : Colors.black),
+        pointerColor: Color(widget.noteModel.color),
+        overlayColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.black.withAlpha(200)
+            : Colors.white.withAlpha(200),
+        buttonThemeHovered: const PieButtonTheme(
             backgroundColor: kPrimaryColor, iconColor: Colors.white),
-        buttonTheme: PieButtonTheme(
+        buttonTheme: const PieButtonTheme(
             backgroundColor: Colors.white, iconColor: kPrimaryColor));
   }
 }

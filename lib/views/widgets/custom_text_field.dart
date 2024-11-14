@@ -31,7 +31,7 @@ class CustomTextField extends StatelessWidget {
           return null;
         }
       },
-      cursorColor: kSecondaryColor,
+      cursorColor: kPrimaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
         fillColor: Colors.grey.withOpacity(0.1),

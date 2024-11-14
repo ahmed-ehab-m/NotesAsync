@@ -26,7 +26,7 @@ class CustomEditTextField extends StatelessWidget {
         fontSize: fontSize,
       ),
       /////////////////////////////////////////////
-      cursorColor: kSecondaryColor,
+      cursorColor: kPrimaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
         fillColor: color,

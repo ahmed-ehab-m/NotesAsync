@@ -13,12 +13,18 @@ class CustomAppBar extends StatelessWidget {
       this.onDeletePressed,
       this.onPinPressed,
       this.pinIcon,
-      this.iconColor});
+      this.iconColor,
+      this.showColorIcon,
+      this.onColorIconPressed});
   final String title;
   final IconData? icon, deleteIcon, pinIcon;
-  final void Function()? onPressed, onDeletePressed, onPinPressed;
+  final void Function()? onPressed,
+      onDeletePressed,
+      onPinPressed,
+      onColorIconPressed;
   final bool showPrefixIcon;
   final Color? iconColor;
+  final bool? showColorIcon;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -32,9 +38,18 @@ class CustomAppBar extends StatelessWidget {
               title,
               style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
+            if (showColorIcon != null)
+              const SizedBox(
+                width: 150,
+              ),
+            if (showColorIcon != null)
+              CustomIcon(
+                icon: Icons.color_lens_outlined,
+                onPressed: onColorIconPressed,
+              ),
             if (pinIcon != null)
               const SizedBox(
-                width: 190,
+                width: 20,
               ),
             if (pinIcon != null)
               CustomIcon(
@@ -44,7 +59,7 @@ class CustomAppBar extends StatelessWidget {
               ),
             if (deleteIcon != null)
               const SizedBox(
-                width: 20,
+                width: 15,
               ),
             if (deleteIcon != null)
               CustomIcon(

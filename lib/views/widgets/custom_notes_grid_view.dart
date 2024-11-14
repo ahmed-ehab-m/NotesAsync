@@ -169,9 +169,7 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
         text,
         maxLines: 9,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          fontSize: 14,
-        ),
+        style: TextStyle(fontSize: 14, color: Colors.grey[300]),
       ); // إرجاع النص كما هو إذا لم يكن هناك نمط بحث
     }
 

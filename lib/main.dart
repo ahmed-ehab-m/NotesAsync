@@ -47,6 +47,8 @@ class _NotesAppState extends State<NotesApp> {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               brightness: BlocProvider.of<ChangeThemeCubit>(context).theme,
+              scaffoldBackgroundColor:
+                  BlocProvider.of<ChangeThemeCubit>(context).backgroundColor,
               fontFamily: 'Poppins',
             ),
             home: NotesView(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,15 +10,20 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
     emit(ChangeThemeSuccess());
   }
   final hour = DateTime.now().hour;
-  Color color = Colors.white;
+
   Brightness theme = Brightness.dark;
-
+  Color backgroundColor = Colors.white;
+  Color circleColor = kPrimaryColor;
   Brightness defaultTheme() {
-    return hour >= 5 && hour < 18 ? Brightness.light : Brightness.dark;
-  }
-
-  Color defaultColor() {
-    return hour >= 5 && hour < 18 ? Colors.grey : Colors.white;
+    if (hour >= 5 && hour < 18) {
+      backgroundColor = Colors.white;
+      circleColor = kPrimaryColor;
+      return Brightness.light;
+    } else {
+      circleColor = kPrimaryColor;
+      backgroundColor = Colors.black;
+      return Brightness.dark;
+    }
   }
 
   Future loadTheme() async {
@@ -30,15 +36,17 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
     switch (themeType) {
       case 1:
         theme = Brightness.light;
-        color = Colors.grey;
+        backgroundColor = Colors.white;
+        circleColor = kPrimaryColor;
         break;
       case 2:
         theme = Brightness.dark;
-        color = Colors.white;
+        backgroundColor = Colors.black;
+        circleColor = kPrimaryColor;
         break;
       case 3:
         theme = defaultTheme();
-        color = defaultColor();
+
         break;
     }
     emit(ChangeThemeSuccess());
@@ -46,6 +54,5 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt('themeType', themeType);
     }
-    // حفظ الثيم إذا كان مطلوبًا
   }
 }
