@@ -30,6 +30,8 @@ class _EditNoteViewState extends State<EditNoteView> {
     setState(() {
       this.title = title;
       this.content = content;
+      print(title);
+      print(content);
     });
   }
 
@@ -99,7 +101,9 @@ class _EditNoteViewState extends State<EditNoteView> {
             widget.noteModel.subtitle = content ?? widget.noteModel.subtitle;
             widget.noteModel.color = tfColor?.value ?? widget.noteModel.color;
             await widget.noteModel.save();
+            // ignore: use_build_context_synchronously
             BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+            // ignore: use_build_context_synchronously
             Navigator.pop(context);
             // widget.onSave(widget.noteModel.title, widget.noteModel.subtitle);
           },
