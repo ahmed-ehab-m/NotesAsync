@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:notes_app/constants.dart';
-import 'package:notes_app/views/widgets/add_note_bottom_sheet.dart';
+import 'package:notes_app/views/add_note_view.dart';
+import 'package:notes_app/views/settings_view.dart';
+import 'package:notes_app/views/widgets/custom_icon.dart';
 import 'package:notes_app/views/widgets/notes_view_body.dart';
+import 'package:notes_app/views/widgets/test_app_bar.dart';
 import 'package:pie_menu/pie_menu.dart';
 
 class NotesView extends StatelessWidget {
@@ -11,16 +15,42 @@ class NotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PieCanvas(
       child: Scaffold(
+        appBar: CustomTestAppBar(
+          title: 'My Notes',
+          checkIcon: CustomIcon(
+            icon: HugeIcons.strokeRoundedSlidersHorizontal,
+            iconColor: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const SettingsView();
+                  },
+                ),
+              );
+            },
+          ),
+        ),
         body: const NotesViewBody(),
         floatingActionButton: FloatingActionButton(
           backgroundColor: kPrimaryColor,
           onPressed: () {
-            showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
+            Navigator.push(
+              context,
+              MaterialPageRoute(
                 builder: (context) {
-                  return const AddNoteBottomSheet();
-                });
+                  return AddNoteView();
+                },
+              ),
+            );
+
+            // showModalBottomSheet(
+            //     isScrollControlled: true,
+            //     context: context,
+            //     builder: (context) {
+            //       return const AddNoteBottomSheet();
+            //     });
           },
           child: const Icon(Icons.add),
         ),

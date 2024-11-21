@@ -8,12 +8,10 @@ class CustomIcon extends StatelessWidget {
   final Color? iconColor;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Icon(
-        icon,
-        color: iconColor,
-      ),
+    return IconButton(
+      icon: Icon(icon),
+      color: iconColor,
+      onPressed: onPressed,
     );
   }
 }

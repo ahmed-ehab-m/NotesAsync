@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/constants.dart';
 
 class ColorItem extends StatelessWidget {
@@ -25,31 +24,33 @@ class ColorItem extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(18),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
                   color: color,
                 ),
                 width: 100,
-                child: const Icon(
-                  FontAwesomeIcons.bars,
-                  size: 40,
-                  color: kSecondaryColor,
+                child: Image.asset(
+                  'assets/images/Multiline Text (1).png',
                 ),
+                // child: const Icon(
+                //   FontAwesomeIcons.bars,
+                //   size: 40,
+                //   color: kSecondaryColor,
+                // ),
               ),
             ),
           )
         : Container(
+            padding: EdgeInsets.all(18),
             width: 100,
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(
-              FontAwesomeIcons.bars,
-              size: 40,
-              color: kSecondaryColor,
+            child: Image.asset(
+              'assets/images/Multiline Text (1).png',
             ),
           );
 

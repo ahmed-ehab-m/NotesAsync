@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
 import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_cubit.dart';
-import 'package:notes_app/views/widgets/custom_app_bar.dart';
 import 'package:notes_app/views/widgets/custom_drop_down_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,19 +46,19 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: 16,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 55,
-          ),
-          const CustomAppBar(
-            title: 'My Notes',
-            showPrefixIcon: true,
-          ),
+          // const SizedBox(
+          //   height: 55,
+          // ),
+          // const CustomAppBar(
+          //   title: 'My Notes',
+          //   showPrefixIcon: true,
+          // ),
           const SizedBox(
             height: 20,
           ),

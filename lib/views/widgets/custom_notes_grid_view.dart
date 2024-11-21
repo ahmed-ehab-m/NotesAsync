@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_state.dart';
 import 'package:notes_app/models/note_model.dart';
@@ -68,14 +69,14 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
                     // showOptions: showOptions,
                     noteModel: notes[index],
                     icon: notes[index].pin
-                        ? Icons.push_pin
-                        : Icons.push_pin_outlined,
+                        ? HugeIcons.strokeRoundedPin
+                        : HugeIcons.strokeRoundedPin,
                     color: notes[index].pin ? kPrimaryColor : kSecondaryColor,
                     onPressed: () => togglePin(index),
                     onSelectPin: () {
                       togglePin(index);
                     },
-                    status: notes[index].pin ? 'Pinned' : 'Pin',
+                    status: notes[index].pin ? 'Unpin' : 'Pin',
                     showPin: notes[index].pin ? true : false,
                     pattern: widget.pattern,
                     textTitle: _buildHighlightedTextTitle(

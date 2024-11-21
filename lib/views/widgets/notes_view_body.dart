@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
-import 'package:notes_app/views/settings_view.dart';
-import 'package:notes_app/views/widgets/custom_app_bar.dart';
 import 'package:notes_app/views/widgets/custom_notes_grid_view.dart';
 import 'package:notes_app/views/widgets/custom_text_field.dart';
 
@@ -29,26 +26,26 @@ class _NotesViewBodyState extends State<NotesViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 55,
-          ),
-          CustomAppBar(
-              title: 'My Notes',
-              icon: FontAwesomeIcons.sliders,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const SettingsView();
-                    },
-                  ),
-                );
-              }),
+          // const SizedBox(
+          //   height: 55,
+          // ),
+          // CustomAppBar(
+          //     title: 'My Notes',
+          //     icon: FontAwesomeIcons.sliders,
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) {
+          //             return const SettingsView();
+          //           },
+          //         ),
+          //       );
+          //     }),
           const SizedBox(
             height: 20,
           ),

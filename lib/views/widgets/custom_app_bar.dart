@@ -5,7 +5,7 @@ import 'package:notes_app/views/widgets/custom_icon.dart';
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar(
       {super.key,
-      required this.title,
+      this.title,
       this.icon,
       this.onPressed,
       this.showPrefixIcon = false,
@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget {
       this.iconColor,
       this.showColorIcon,
       this.onColorIconPressed});
-  final String title;
+  final String? title;
   final IconData? icon, deleteIcon, pinIcon;
   final void Function()? onPressed,
       onDeletePressed,
@@ -31,16 +31,21 @@ class CustomAppBar extends StatelessWidget {
       children: [
         Row(
           children: [
-            SizedBox(
-              width: showPrefixIcon ? 70 : 0,
-            ),
+            if (title == null)
+              const Spacer(
+                flex: 8,
+              ),
             Text(
-              title,
+              title ?? '',
               style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
+            if (title != null)
+              const Spacer(
+                flex: 8,
+              ),
             if (showColorIcon != null)
-              const SizedBox(
-                width: 150,
+              const Spacer(
+                flex: 1,
               ),
             if (showColorIcon != null)
               CustomIcon(
@@ -48,8 +53,8 @@ class CustomAppBar extends StatelessWidget {
                 onPressed: onColorIconPressed,
               ),
             if (pinIcon != null)
-              const SizedBox(
-                width: 20,
+              const Spacer(
+                flex: 1,
               ),
             if (pinIcon != null)
               CustomIcon(
@@ -58,8 +63,8 @@ class CustomAppBar extends StatelessWidget {
                 iconColor: iconColor,
               ),
             if (deleteIcon != null)
-              const SizedBox(
-                width: 15,
+              const Spacer(
+                flex: 1,
               ),
             if (deleteIcon != null)
               CustomIcon(

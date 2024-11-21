@@ -44,7 +44,7 @@ dependencies:
   pie_menu: ^3.2.7
   shared_preferences: ^2.3.2
   awesome_snackbar_content: ^0.1.4
-  blur: ^4.0.0
+  hugeicons: ^0.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,9 +70,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

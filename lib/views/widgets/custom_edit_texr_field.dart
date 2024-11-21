@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/constants.dart';
 
 class CustomEditTextField extends StatelessWidget {
-  const CustomEditTextField({
-    super.key,
-    this.text,
-    this.maxLines = 1,
-    this.onChanged,
-    required this.color,
-    required this.fontSize,
-  });
+  const CustomEditTextField(
+      {super.key,
+      this.text,
+      this.maxLines = 1,
+      this.onChanged,
+      required this.color,
+      required this.fontSize,
+      this.controller});
 
   final String? text;
   final int maxLines;
   final Function(String?)? onChanged;
   final Color color;
   final double fontSize;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController(text: text);
     return TextFormField(
       controller: controller,
       onChanged: onChanged,

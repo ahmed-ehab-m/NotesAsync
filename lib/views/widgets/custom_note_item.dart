@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
@@ -39,6 +39,7 @@ class NoteItem extends StatefulWidget {
 }
 
 class _NoteItemState extends State<NoteItem> {
+  Color? iconColor;
   @override
   @override
   Widget build(BuildContext context) {
@@ -58,12 +59,11 @@ class _NoteItemState extends State<NoteItem> {
       },
       actions: [
         PieAction(
-          tooltip: Text(widget.status),
-          onSelect: widget.onSelectPin,
-          child: Icon(
-            widget.icon,
-          ), // Can be any widget
-        ),
+            tooltip: Text(widget.status),
+            onSelect: widget.onSelectPin,
+            child: widget.noteModel.pin
+                ? const Icon(HugeIcons.strokeRoundedPinOff)
+                : const Icon(HugeIcons.strokeRoundedPin)),
         PieAction(
           tooltip: const Text(
             'Delete',
@@ -77,7 +77,8 @@ class _NoteItemState extends State<NoteItem> {
               ..showSnackBar(
                   CustomSnackBar().buildSnackBar(message: 'note deleted'));
           },
-          child: const Icon(FontAwesomeIcons.trashCan), // Can be any widget
+          child:
+              const Icon(HugeIcons.strokeRoundedDelete02), // Can be any widget
         ),
       ],
       child: Stack(
@@ -102,7 +103,7 @@ class _NoteItemState extends State<NoteItem> {
                       widget.noteModel.date,
                       style: const TextStyle(
                         color: Colors.white70,
-                        fontSize: 14,
+                        fontSize: 12,
                       ),
                     ),
                   ],
@@ -110,7 +111,7 @@ class _NoteItemState extends State<NoteItem> {
               ],
             ),
           ),
-          if (widget.showPin) pinIcon(widget: widget),
+          if (widget.showPin) const pinIcon(),
         ],
       ),
     );
