@@ -27,6 +27,24 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
   //     showOptions = !showOptions;
   //   });
   // }
+  late ScrollController _controller;
+  void initState() {
+    super.initState();
+    _controller = ScrollController();
+
+    // ضبط التمرير عند أول بناء للشاشة
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_controller.hasClients) {
+        _controller.jumpTo(_controller.position.minScrollExtent);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +71,8 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: GridView.builder(
+            // reverse: true,
+            controller: _controller,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, // عدد الأعمدة في الشبكة
               crossAxisSpacing: 8.0,

@@ -11,7 +11,15 @@ class NotesCubit extends Cubit<NotesState> {
   fetchAllNotes({String? pattern}) {
     var notesBox = Hive.box<NoteModel>(kNotesBox);
     notes = notesBox.values.toList();
-    notes?.sort((a, b) => (b.pin ? 1 : 0) - (a.pin ? 1 : 0));
+    notes!.sort((a, b) {
+      // فرز حسب pin ثم التاريخ
+      int pinComparison = (b.pin ? 1 : 0) - (a.pin ? 1 : 0);
+      if (pinComparison == 0) {
+        return b.date.compareTo(a.date);
+      }
+      return pinComparison;
+    });
+    // notes!.reversed;
     if (pattern != null && pattern.isNotEmpty) {
       filteredNotes = notes?.where((note) {
         final titleLower = note.title.toLowerCase();
