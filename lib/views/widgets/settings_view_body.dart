@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
 import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_cubit.dart';
+import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/views/widgets/custom_drop_down_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,7 +16,7 @@ class SettingsViewBody extends StatefulWidget {
 
 class _SettingsViewBodyState extends State<SettingsViewBody> {
   @override
-  int? indexTheme, indexFont;
+  int? indexTheme, indexFont, indexLayout;
   void initState() {
     super.initState();
     BlocProvider.of<ChangeFontSizeCubit>(context).defaultFont();
@@ -27,10 +28,11 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
     setState(() {
       indexTheme = prefs.getInt('themeIndex') ?? 3;
       indexFont = prefs.getInt('fontIndex') ?? 2;
+      indexLayout = prefs.getInt('layoutIndex') ?? 1;
     });
   }
 
-  Future<void> saveIndex(int value) async {
+  Future<void> saveThemeIndex(int value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('themeIndex', value);
   }
@@ -40,6 +42,11 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
 
     await prefs.setInt('fontIndex', value);
     print("Font index saved: $value");
+  }
+
+  Future<void> saveLayoutIndex(int value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('layoutIndex', value);
   }
 
   @override
@@ -112,13 +119,39 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
 
                       setState(() {
                         indexTheme = value;
-                        saveIndex(value);
+                        saveThemeIndex(value);
                       });
                     },
                     initialSelection: indexTheme!,
                     firstOption: 'Light',
                     secondOption: 'Dark',
                     thridption: 'Default'),
+              ],
+            ),
+          const SizedBox(
+            height: 40,
+          ),
+          if (indexLayout != null)
+            Row(
+              children: [
+                const Text(
+                  'Layout',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                CustomDropdownMenu(
+                  onSelected: (value) {
+                    BlocProvider.of<NotesCubit>(context).changeLayout(value);
+                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                    setState(() {
+                      indexLayout = value;
+                      saveLayoutIndex(value);
+                    });
+                  },
+                  initialSelection: indexLayout!,
+                  firstOption: 'GridView',
+                  secondOption: 'ListView',
+                ),
               ],
             )
         ],

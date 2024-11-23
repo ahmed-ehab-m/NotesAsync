@@ -3,11 +3,27 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_state.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotesCubit extends Cubit<NotesState> {
-  NotesCubit() : super(NotesInitial());
+  NotesCubit() : super(NotesInitial()) {
+    loadLayout();
+    emit(NotesSuccess());
+  }
   List<NoteModel>? notes;
   List<NoteModel>? filteredNotes;
+
+  bool layout = false;
+  changeLayout(int value) {
+    value == 1 ? layout = true : layout = false;
+  }
+
+  Future loadLayout() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedLayout = prefs.getInt('layoutIndex') ?? 1;
+    changeLayout(savedLayout);
+  }
+
   fetchAllNotes({String? pattern}) {
     var notesBox = Hive.box<NoteModel>(kNotesBox);
     notes = notesBox.values.toList();

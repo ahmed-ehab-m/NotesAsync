@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_cubit.dart';
 
 class CustomTestAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomTestAppBar(
@@ -38,7 +40,8 @@ class CustomTestAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: checkIcon ?? Icon(null),
         ),
       ],
-      backgroundColor: Colors.black,
+      backgroundColor:
+          BlocProvider.of<ChangeThemeCubit>(context).backgroundColor,
     );
   }
 

@@ -16,7 +16,7 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
   Color circleColor = kPrimaryColor;
   Brightness defaultTheme() {
     if (hour >= 5 && hour < 18) {
-      backgroundColor = Colors.white;
+      backgroundColor = Colors.grey;
       circleColor = kPrimaryColor;
       return Brightness.light;
     } else {

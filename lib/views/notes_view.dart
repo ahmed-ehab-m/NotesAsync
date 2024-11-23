@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/views/add_note_view.dart';
@@ -34,6 +35,7 @@ class NotesView extends StatelessWidget {
         ),
         body: const NotesViewBody(),
         floatingActionButton: FloatingActionButton(
+          shape: CircleBorder(),
           backgroundColor: kPrimaryColor,
           onPressed: () {
             Navigator.push(
@@ -52,7 +54,10 @@ class NotesView extends StatelessWidget {
             //       return const AddNoteBottomSheet();
             //     });
           },
-          child: const Icon(Icons.add),
+          child: const Icon(
+            FontAwesomeIcons.plus,
+            color: Colors.white,
+          ),
         ),
       ),
     );

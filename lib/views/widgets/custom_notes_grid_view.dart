@@ -27,24 +27,6 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
   //     showOptions = !showOptions;
   //   });
   // }
-  late ScrollController _controller;
-  void initState() {
-    super.initState();
-    _controller = ScrollController();
-
-    // ضبط التمرير عند أول بناء للشاشة
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_controller.hasClients) {
-        _controller.jumpTo(_controller.position.minScrollExtent);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,48 +52,82 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
 
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
-          child: GridView.builder(
-            // reverse: true,
-            controller: _controller,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // عدد الأعمدة في الشبكة
-              crossAxisSpacing: 8.0,
-              mainAxisSpacing: 8.0,
-              childAspectRatio: 0.6,
-            ),
-            itemCount: notes.length,
-            padding: EdgeInsets.zero,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: GestureDetector(
-                  child: NoteItem(
-                    // showOptions: showOptions,
-                    noteModel: notes[index],
-                    icon: notes[index].pin
-                        ? HugeIcons.strokeRoundedPin
-                        : HugeIcons.strokeRoundedPin,
-                    color: notes[index].pin ? kPrimaryColor : kSecondaryColor,
-                    onPressed: () => togglePin(index),
-                    onSelectPin: () {
-                      togglePin(index);
-                    },
-                    status: notes[index].pin ? 'Unpin' : 'Pin',
-                    showPin: notes[index].pin ? true : false,
-                    pattern: widget.pattern,
-                    textTitle: _buildHighlightedTextTitle(
-                        notes[index].title, widget.pattern ?? ''),
-                    textSubTitle: _buildHighlightedTextSubTitle(
-                        notes[index].subtitle, widget.pattern ?? ''),
-                    // textStyleTitle: highlightedText(
-                    //     notes[index].title, widget.pattern ?? ''),
-                    // textStyleSubTitle: highlightedText(
-                    //     notes[index].subtitle, widget.pattern ?? ''),
+          child: BlocProvider.of<NotesCubit>(context).layout
+              ? GridView.builder(
+                  // reverse: true,
+
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // عدد الأعمدة في الشبكة
+                    crossAxisSpacing: 8.0,
+                    mainAxisSpacing: 8.0,
+                    childAspectRatio: 0.6,
                   ),
+                  itemCount: notes.length,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: NoteItem(
+                        // showOptions: showOptions,
+                        noteModel: notes[index],
+                        icon: notes[index].pin
+                            ? HugeIcons.strokeRoundedPin
+                            : HugeIcons.strokeRoundedPin,
+                        color:
+                            notes[index].pin ? kPrimaryColor : kSecondaryColor,
+                        onPressed: () => togglePin(index),
+                        onSelectPin: () {
+                          togglePin(index);
+                        },
+                        status: notes[index].pin ? 'Unpin' : 'Pin',
+                        showPin: notes[index].pin ? true : false,
+                        pattern: widget.pattern,
+                        textTitle: _buildHighlightedTextTitle(
+                            notes[index].title, widget.pattern ?? ''),
+                        textSubTitle: _buildHighlightedTextSubTitle(
+                            notes[index].subtitle, widget.pattern ?? ''),
+                        // textStyleTitle: highlightedText(
+                        //     notes[index].title, widget.pattern ?? ''),
+                        // textStyleSubTitle: highlightedText(
+                        //     notes[index].subtitle, widget.pattern ?? ''),
+                      ),
+                    );
+                  },
+                )
+              : ListView.builder(
+                  // reverse: true,
+                  itemCount: notes.length,
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: NoteItem(
+                        // showOptions: showOptions,
+                        noteModel: notes[index],
+                        icon: notes[index].pin
+                            ? HugeIcons.strokeRoundedPin
+                            : HugeIcons.strokeRoundedPin,
+                        color:
+                            notes[index].pin ? kPrimaryColor : kSecondaryColor,
+                        onPressed: () => togglePin(index),
+                        onSelectPin: () {
+                          togglePin(index);
+                        },
+                        status: notes[index].pin ? 'Unpin' : 'Pin',
+                        showPin: notes[index].pin ? true : false,
+                        pattern: widget.pattern,
+                        textTitle: _buildHighlightedTextTitle(
+                            notes[index].title, widget.pattern ?? ''),
+                        textSubTitle: _buildHighlightedTextSubTitle(
+                            notes[index].subtitle, widget.pattern ?? ''),
+                        // textStyleTitle: highlightedText(
+                        //     notes[index].title, widget.pattern ?? ''),
+                        // textStyleSubTitle: highlightedText(
+                        //     notes[index].subtitle, widget.pattern ?? ''),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         );
       },
     );
