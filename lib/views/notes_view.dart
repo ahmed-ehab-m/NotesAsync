@@ -4,9 +4,9 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/views/add_note_view.dart';
 import 'package:notes_app/views/settings_view.dart';
+import 'package:notes_app/views/widgets/custom_app_bar.dart';
 import 'package:notes_app/views/widgets/custom_icon.dart';
 import 'package:notes_app/views/widgets/notes_view_body.dart';
-import 'package:notes_app/views/widgets/test_app_bar.dart';
 import 'package:pie_menu/pie_menu.dart';
 
 class NotesView extends StatelessWidget {
@@ -16,11 +16,11 @@ class NotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return PieCanvas(
       child: Scaffold(
-        appBar: CustomTestAppBar(
+        appBar: CustomAppBar(
           title: 'My Notes',
           checkIcon: CustomIcon(
             icon: HugeIcons.strokeRoundedSlidersHorizontal,
-            iconColor: Colors.white,
+            // iconColor: Colors.white,
             onPressed: () {
               Navigator.push(
                 context,

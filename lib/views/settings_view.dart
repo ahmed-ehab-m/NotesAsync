@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/views/widgets/custom_app_bar.dart';
 import 'package:notes_app/views/widgets/settings_view_body.dart';
-import 'package:notes_app/views/widgets/test_app_bar.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -8,7 +8,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: CustomTestAppBar(
+      appBar: CustomAppBar(
         title: 'Settings ',
       ),
       body: SettingsViewBody(),

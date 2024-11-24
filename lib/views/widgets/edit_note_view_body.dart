@@ -33,11 +33,10 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
 
   String? title;
   String? content;
-  late Color textFieldColor;
 
   void initState() {
     super.initState();
-    textFieldColor = Color(widget.noteModel.color); // تعيين اللون الحالي
+
     titleController = TextEditingController(text: widget.initialTitle);
     contentController = TextEditingController(text: widget.initialContent);
   }

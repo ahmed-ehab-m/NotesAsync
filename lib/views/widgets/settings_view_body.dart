@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
 import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_cubit.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
@@ -71,7 +70,9 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
           ),
           const Text(
             'Style',
-            style: TextStyle(fontSize: 16, color: kSecondaryColor),
+            style: TextStyle(
+              fontSize: 16,
+            ),
           ),
           const Divider(),
           const SizedBox(

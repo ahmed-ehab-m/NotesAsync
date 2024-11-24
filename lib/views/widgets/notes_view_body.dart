@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_cubit.dart';
+import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_state.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/views/widgets/custom_notes_grid_view.dart';
 import 'package:notes_app/views/widgets/custom_text_field.dart';
@@ -25,54 +27,46 @@ class _NotesViewBodyState extends State<NotesViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // const SizedBox(
-          //   height: 55,
-          // ),
-          // CustomAppBar(
-          //     title: 'My Notes',
-          //     icon: FontAwesomeIcons.sliders,
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) {
-          //             return const SettingsView();
-          //           },
-          //         ),
-          //       );
-          //     }),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomTextField(
-            showIcon: true,
-            onChanged: (value) {
-              setState(() {
-                searchPattern = value;
-              });
-              BlocProvider.of<NotesCubit>(context)
-                  .fetchAllNotes(pattern: value);
-            },
+    return BlocBuilder<ChangeThemeCubit, ChangeThemeState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                // color: BlocProvider.of<ChangeThemeCubit>(context).theme ==
+                //         Brightness.light
+                //     ? Colors.grey[500]!.withOpacity(0.3)
+                color: Color(0x1A9E9E9E),
+                showIcon: true,
+                onChanged: (value) {
+                  setState(() {
+                    searchPattern = value;
+                  });
+                  BlocProvider.of<NotesCubit>(context)
+                      .fetchAllNotes(pattern: value);
+                },
 
-            // widget.onPressedSearch;
+                // widget.onPressedSearch;
 
-            text: 'Search',
+                text: 'Search',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              // SizedBox(height: 350, child: CustomPinNotesView()),
+              Expanded(
+                  child: CustomNotesGridView(
+                pattern: searchPattern,
+              )),
+            ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          // SizedBox(height: 350, child: CustomPinNotesView()),
-          Expanded(
-              child: CustomNotesGridView(
-            pattern: searchPattern,
-          )),
-        ],
-      ),
+        );
+      },
     );
   }
 }

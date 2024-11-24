@@ -4,11 +4,11 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
+import 'package:notes_app/views/widgets/custom_app_bar.dart';
 import 'package:notes_app/views/widgets/custom_icon.dart';
 import 'package:notes_app/views/widgets/custom_snack_bar.dart';
 import 'package:notes_app/views/widgets/edit_note_colors_list_view.dart';
 import 'package:notes_app/views/widgets/edit_note_view_body.dart';
-import 'package:notes_app/views/widgets/test_app_bar.dart';
 
 class EditNoteView extends StatefulWidget {
   const EditNoteView({
@@ -38,10 +38,10 @@ class _EditNoteViewState extends State<EditNoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTestAppBar(
+      appBar: CustomAppBar(
         colorIcon: CustomIcon(
           icon: HugeIcons.strokeRoundedColors,
-          iconColor: Colors.white,
+          // iconColor: Colors.white,
           onPressed: () {
             showModalBottomSheet(
               barrierColor: Colors.transparent,
@@ -81,7 +81,7 @@ class _EditNoteViewState extends State<EditNoteView> {
         ),
         deleteIcon: CustomIcon(
           icon: HugeIcons.strokeRoundedDelete02,
-          iconColor: Colors.white,
+          // iconColor: Colors.white,
           onPressed: () {
             widget.noteModel.delete();
             BlocProvider.of<NotesCubit>(context).fetchAllNotes();
@@ -95,7 +95,7 @@ class _EditNoteViewState extends State<EditNoteView> {
         ),
         checkIcon: CustomIcon(
           icon: HugeIcons.strokeRoundedCheckmarkSquare04,
-          iconColor: Colors.white,
+          // iconColor: Colors.white,
           onPressed: () async {
             widget.noteModel.title = title ?? widget.noteModel.title;
             widget.noteModel.subtitle = content ?? widget.noteModel.subtitle;

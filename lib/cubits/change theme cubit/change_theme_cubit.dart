@@ -12,11 +12,11 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
   final hour = DateTime.now().hour;
 
   Brightness theme = Brightness.dark;
-  Color backgroundColor = Colors.white;
+  Color? backgroundColor = Colors.white;
   Color circleColor = kPrimaryColor;
   Brightness defaultTheme() {
-    if (hour >= 5 && hour < 18) {
-      backgroundColor = Colors.grey;
+    if (hour >= 5 && hour < 17) {
+      backgroundColor = Colors.white;
       circleColor = kPrimaryColor;
       return Brightness.light;
     } else {

@@ -41,14 +41,19 @@ class CustomTextField extends StatelessWidget {
       cursorColor: kPrimaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
-        fillColor: color ?? Color(0x1A9E9E9E),
+        fillColor: color,
+        // fillColor: color == null ??
+        //         BlocProvider.of<ChangeThemeCubit>(context).theme ==
+        //             Brightness.light
+        //     ? Colors.grey[500]!.withOpacity(0.3)
+        //     : Color(0x1A9E9E9E),
         filled: true,
         prefixIcon: showIcon
             ? IconButton(
                 onPressed: onPressedSearch, icon: Icon(CupertinoIcons.search))
             : null,
         hintText: text,
-        hintStyle: TextStyle(color: kSecondaryColor, fontSize: fontSize ?? 16),
+        hintStyle: TextStyle(fontSize: fontSize ?? 16),
         border: buildBorder(),
         enabledBorder: buildBorder(),
         focusedBorder: buildBorder(

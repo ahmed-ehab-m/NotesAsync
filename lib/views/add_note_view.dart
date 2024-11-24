@@ -8,8 +8,8 @@ import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/widgets/add_note_body.dart';
 import 'package:notes_app/views/widgets/colors_list_view.dart';
+import 'package:notes_app/views/widgets/custom_app_bar.dart';
 import 'package:notes_app/views/widgets/custom_icon.dart';
-import 'package:notes_app/views/widgets/test_app_bar.dart';
 
 class AddNoteView extends StatefulWidget {
   const AddNoteView({super.key});
@@ -23,8 +23,8 @@ class _AddNoteViewState extends State<AddNoteView> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title;
   String? content;
-  Color? tfColor;
-  void updateNoteData({String? title, String? content}) {
+  Color tfColor = kColors[0];
+  void addNoteData({String? title, String? content}) {
     setState(() {
       this.title = title;
       this.content = content;
@@ -36,10 +36,10 @@ class _AddNoteViewState extends State<AddNoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomTestAppBar(
+      appBar: CustomAppBar(
         colorIcon: CustomIcon(
           icon: HugeIcons.strokeRoundedColors,
-          iconColor: Colors.white,
+          // iconColor: Colors.white,
           onPressed: () {
             showModalBottomSheet(
               barrierColor: Colors.transparent,
@@ -63,7 +63,7 @@ class _AddNoteViewState extends State<AddNoteView> {
         ),
         checkIcon: CustomIcon(
           icon: HugeIcons.strokeRoundedCheckmarkSquare04,
-          iconColor: Colors.white,
+          // iconColor: Colors.white,
           onPressed: () {
             validation(context);
           },
@@ -71,8 +71,8 @@ class _AddNoteViewState extends State<AddNoteView> {
       ),
       body: AddNoteBody(
         formKey: formKey,
-        textFieldColor: tfColor ?? kColors[0],
-        onSave: updateNoteData,
+        textFieldColor: tfColor,
+        onSave: addNoteData,
       ),
     );
   }

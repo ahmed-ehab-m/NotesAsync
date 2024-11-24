@@ -28,6 +28,7 @@ class AddNoteBody extends StatefulWidget {
 
 class _AddNoteBodyState extends State<AddNoteBody> {
   String? title;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddNoteCubit, AddNoteState>(

@@ -118,76 +118,120 @@ class _NoteItemState extends State<NoteItem> {
                 ],
               ),
             )
-          : PieMenu(
-              theme: pieTheme(),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return EditNoteView(
-                        noteModel: widget.noteModel,
-                      );
-                    },
-                  ),
-                );
-              },
-              actions: [
-                PieAction(
-                    tooltip: Text(widget.status),
-                    onSelect: widget.onSelectPin,
-                    child: widget.noteModel.pin
-                        ? const Icon(HugeIcons.strokeRoundedPinOff)
-                        : const Icon(HugeIcons.strokeRoundedPin)),
-                PieAction(
-                  tooltip: const Text(
-                    'Delete',
-                  ),
-                  onSelect: () {
-                    widget.noteModel.delete();
-                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(CustomSnackBar()
-                          .buildSnackBar(message: 'note deleted'));
-                  },
-                  child: const Icon(
-                      HugeIcons.strokeRoundedDelete02), // Can be any widget
+          : Dismissible(
+              background: Container(
+                decoration: BoxDecoration(
+                    color: Colors.red, borderRadius: BorderRadius.circular(16)),
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: const Icon(
+                  HugeIcons.strokeRoundedDelete02,
+                  color: Colors.white,
+                  size: 40,
                 ),
-              ],
-              child: Stack(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                    decoration: BoxDecoration(
-                        color: Color(widget.noteModel.color),
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        widget.textTitle,
-                        Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10, top: 10, bottom: 10),
-                            child: widget.textSubTitle),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.noteModel.date,
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 12,
-                              ),
-                            ),
-                            if (widget.showPin) const pinIcon(),
-                          ],
-                        ),
-                      ],
+              ),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) {
+                widget.noteModel.delete();
+                BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                      CustomSnackBar().buildSnackBar(message: 'note deleted'));
+              },
+              // onDismissed: () {
+              //   widget.noteModel.delete();
+              //   BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+
+              //   ScaffoldMessenger.of(context)
+              //     ..hideCurrentSnackBar()
+              //     ..showSnackBar(
+              //         CustomSnackBar().buildSnackBar(message: 'note deleted'));
+              // },
+              // backgroundColor: Colors.red,
+
+              key: Key('hh'),
+              child: PieMenu(
+                theme: pieTheme(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return EditNoteView(
+                          noteModel: widget.noteModel,
+                        );
+                      },
                     ),
+                  );
+                },
+                actions: [
+                  PieAction(
+                      tooltip: Text(widget.status),
+                      onSelect: widget.onSelectPin,
+                      child: widget.noteModel.pin
+                          ? const Icon(HugeIcons.strokeRoundedPinOff)
+                          : const Icon(HugeIcons.strokeRoundedPin)),
+                  PieAction(
+                    tooltip: const Text(
+                      'Delete',
+                    ),
+                    onSelect: () {
+                      widget.noteModel.delete();
+                      BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(CustomSnackBar()
+                            .buildSnackBar(message: 'note deleted'));
+                    },
+                    child: const Icon(
+                        HugeIcons.strokeRoundedDelete02), // Can be any widget
                   ),
                 ],
+                child: Stack(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                      decoration: BoxDecoration(
+                          color: Color(widget.noteModel.color),
+                          borderRadius: BorderRadius.circular(16)),
+                      // child: Text('hello'),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          widget.textTitle,
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, top: 10, bottom: 10),
+                              child: widget.textSubTitle),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.noteModel.date,
+                                style: const TextStyle(
+                                  // color: Colors.white70,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              if (widget.showPin)
+                                CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  child: Padding(
+                                      padding: EdgeInsets.all(8),
+                                      child:
+                                          Image.asset('assets/images/Pin.png')),
+                                  // child: Icon(CupertinoIcons.pin, color: kPrimaryColor),
+                                ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
     });
