@@ -9,8 +9,9 @@ import 'package:notes_app/views/widgets/custom_text_field.dart';
 class NotesViewBody extends StatefulWidget {
   const NotesViewBody({
     super.key,
+    required this.searchFocusNode,
   });
-
+  final FocusNode searchFocusNode;
   @override
   State<NotesViewBody> createState() => _NotesViewBodyState();
 }
@@ -31,16 +32,14 @@ class _NotesViewBodyState extends State<NotesViewBody> {
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 20,
               ),
               CustomTextField(
-                // color: BlocProvider.of<ChangeThemeCubit>(context).theme ==
-                //         Brightness.light
-                //     ? Colors.grey[500]!.withOpacity(0.3)
+                focusNode: widget.searchFocusNode,
                 color: Color(0x1A9E9E9E),
                 showIcon: true,
                 onChanged: (value) {
@@ -59,10 +58,9 @@ class _NotesViewBodyState extends State<NotesViewBody> {
                 height: 10,
               ),
               // SizedBox(height: 350, child: CustomPinNotesView()),
-              Expanded(
-                  child: CustomNotesGridView(
+              CustomNotesGridView(
                 pattern: searchPattern,
-              )),
+              ),
             ],
           ),
         );

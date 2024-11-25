@@ -8,6 +8,7 @@ import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/edit_note_view.dart';
 import 'package:notes_app/views/widgets/custom_snack_bar.dart';
 import 'package:notes_app/views/widgets/pin_icon.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:pie_menu/pie_menu.dart';
 
 class NoteItem extends StatefulWidget {
@@ -151,20 +152,29 @@ class _NoteItemState extends State<NoteItem> {
               // },
               // backgroundColor: Colors.red,
 
-              key: Key('hh'),
+              key: Key('Key'),
               child: PieMenu(
                 theme: pieTheme(),
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return EditNoteView(
-                          noteModel: widget.noteModel,
-                        );
-                      },
-                    ),
-                  );
+                      context,
+                      PageTransition(
+                          duration: const Duration(milliseconds: 700),
+                          type: PageTransitionType.scale,
+                          alignment: Alignment.center,
+                          child: EditNoteView(
+                            noteModel: widget.noteModel,
+                          )));
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return EditNoteView(
+                  //         noteModel: widget.noteModel,
+                  //       );
+                  //     },
+                  //   ),
+                  // );
                 },
                 actions: [
                   PieAction(

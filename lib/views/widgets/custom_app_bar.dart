@@ -29,6 +29,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return BlocBuilder<ChangeThemeCubit, ChangeThemeState>(
       builder: (context, state) {
         return AppBar(
+          scrolledUnderElevation: 0.0,
           // leading: backIcon,
           title: Text(
             title ?? '',

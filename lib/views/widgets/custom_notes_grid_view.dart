@@ -54,6 +54,8 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: BlocProvider.of<NotesCubit>(context).layout
               ? GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   // reverse: true,
 
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -95,6 +97,8 @@ class _CustomNotesGridViewState extends State<CustomNotesGridView> {
                   },
                 )
               : ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   // reverse: true,
                   itemCount: notes.length,
                   padding: EdgeInsets.zero,

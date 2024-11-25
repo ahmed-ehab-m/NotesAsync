@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/cubits/add_note_cubit/add_note_state.dart';
+import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
 import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:notes_app/views/widgets/custom_snack_bar.dart';
 import 'package:notes_app/views/widgets/custom_text_field.dart';
@@ -28,6 +29,25 @@ class AddNoteBody extends StatefulWidget {
 
 class _AddNoteBodyState extends State<AddNoteBody> {
   String? title;
+  final FocusNode focusNode = FocusNode();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    delayedFocus();
+  }
+
+  void delayedFocus() async {
+    await Future.delayed(const Duration(milliseconds: 800));
+    if (mounted) {
+      focusNode.requestFocus();
+    }
+  }
+
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +86,14 @@ class _AddNoteBodyState extends State<AddNoteBody> {
                   children: [
                     const SizedBox(height: 20),
                     CustomTextField(
+                      fontSize: BlocProvider.of<ChangeFontSizeCubit>(context)
+                          .titleFontSize,
                       color: widget.textFieldColor,
                       onSaved: (value) {
                         title = value;
                       },
                       text: 'Title',
-                      fontSize: 24,
+                      // fontSize: 24,
                     ),
                     const SizedBox(height: 16),
                     Padding(
@@ -88,8 +110,18 @@ class _AddNoteBodyState extends State<AddNoteBody> {
                     ),
                     const SizedBox(height: 16),
                     CustomTextField(
+                      validator: (value) {
+                        if (value?.isEmpty ?? true) {
+                          return 'Field is Required';
+                        } else {
+                          return null;
+                        }
+                      },
+                      fontSize: BlocProvider.of<ChangeFontSizeCubit>(context)
+                          .contentFontSize,
                       color: widget.textFieldColor,
-                      autofocus: true,
+                      focusNode: focusNode,
+                      // autofocus: true,
                       text: 'Start typing',
                       maxLines: 20,
                       onSaved: (value) {
@@ -105,23 +137,6 @@ class _AddNoteBodyState extends State<AddNoteBody> {
             ),
           ),
         );
-        // return AbsorbPointer(
-        //   absorbing: state is AddNoteLoading ? true : false,
-        //   child: Padding(
-        //     padding: EdgeInsets.only(
-        //       left: 16,
-        //       right: 16,
-        //       bottom: MediaQuery.of(context).viewInsets.bottom,
-        //     ),
-        //     child: SingleChildScrollView(
-        //       child: AddNoteForm(
-        //         formKey: widget.formKey,
-        //         textFieldColor: widget.textFieldColor,
-        //         onSave: widget.onSave,
-        //       ),
-        //     ),
-        //   ),
-        // );
       },
     );
   }

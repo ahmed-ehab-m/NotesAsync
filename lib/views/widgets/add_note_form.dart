@@ -56,7 +56,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(height: 16),
           CustomTextField(
             color: widget.textFieldColor,
-            autofocus: true,
+            // autofocus: true,
             text: 'Start typing',
             maxLines: 20,
             onSaved: (value) {

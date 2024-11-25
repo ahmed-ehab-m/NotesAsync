@@ -83,18 +83,11 @@ class _AddNoteViewState extends State<AddNoteView> {
 
       print('Title: $title, Content: $content'); // التحقق من القيم
 
-      if (title == null || content == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please fill out all fields')),
-        );
-        return;
-      }
-
       var currnetDate = DateTime.now();
       var formattedCurrntDate =
           DateFormat('MMM dd hh:mm a').format(currnetDate);
       var noteModel = NoteModel(
-        title: title!,
+        title: title == null || title!.isEmpty ? 'Untitled' : title!,
         subtitle: content!,
         date: formattedCurrntDate,
         color: tfColor?.value ?? kColors[0].value,
