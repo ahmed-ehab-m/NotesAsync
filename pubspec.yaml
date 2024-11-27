@@ -1,4 +1,4 @@
-name: notes_app
+name: Notes
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -47,11 +47,17 @@ dependencies:
   shared_preferences: ^2.3.2
   awesome_snackbar_content: ^0.1.4
   hugeicons: ^0.0.7
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^2.0.1
   build_runner: ^2.4.12
+  flutter_launcher_icons: ^0.14.1
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon_1024x1024.png"
   
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

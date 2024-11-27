@@ -1,8 +1,8 @@
+import 'package:Notes/constants.dart';
+import 'package:Notes/cubits/add%20note%20cubit/add_note_cubit.dart';
+import 'package:Notes/views/widgets/color_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/constants.dart';
-import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
-import 'package:notes_app/views/widgets/color_item.dart';
 
 class ColorsListView extends StatefulWidget {
   const ColorsListView({

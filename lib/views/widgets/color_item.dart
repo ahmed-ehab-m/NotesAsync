@@ -1,5 +1,5 @@
+import 'package:Notes/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/constants.dart';
 
 class ColorItem extends StatelessWidget {
   const ColorItem({
@@ -9,7 +9,6 @@ class ColorItem extends StatelessWidget {
   });
   final bool isActive;
   final Color color;
-  // final Color backgroundColor;
   @override
   Widget build(BuildContext context) {
     return isActive
@@ -34,11 +33,6 @@ class ColorItem extends StatelessWidget {
                 child: Image.asset(
                   'assets/images/Multiline Text (1).png',
                 ),
-                // child: const Icon(
-                //   FontAwesomeIcons.bars,
-                //   size: 40,
-                //   color: kSecondaryColor,
-                // ),
               ),
             ),
           )
@@ -53,20 +47,5 @@ class ColorItem extends StatelessWidget {
               'assets/images/Multiline Text (1).png',
             ),
           );
-
-    // ? CircleAvatar(
-    //     backgroundColor: BlocProvider.of<ChangeThemeCubit>(context)
-    //         .circleColor
-    //         .withOpacity(0.8),
-    //     radius: 38,
-    //     child: CircleAvatar(
-    //       backgroundColor: color,
-    //       radius: 34,
-    //     ),
-    //   )
-    // : CircleAvatar(
-    //     backgroundColor: color,
-    //     radius: 36,
-    //   );
   }
 }

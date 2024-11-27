@@ -24,40 +24,25 @@ class CustomDropdownMenu extends StatelessWidget {
       inputDecorationTheme: InputDecorationTheme(border: InputBorder.none),
       textStyle: const TextStyle(fontWeight: FontWeight.bold),
       menuStyle: MenuStyle(
-          // shadowColor: const WidgetStatePropertyAll(Colors.grey),
-          // backgroundColor: const WidgetStatePropertyAll(Colors.black),
           shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)))),
       width: 200,
       initialSelection: initialSelection,
       dropdownMenuEntries: [
-        DropdownMenuEntry(
-            value: 1,
-            label: firstOption,
-            style: const ButtonStyle(
-                textStyle: WidgetStatePropertyAll(
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 18)))),
-        DropdownMenuEntry(
-            value: 2,
-            label: secondOption,
-            style: const ButtonStyle(
-                textStyle: WidgetStatePropertyAll(
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 18)))),
+        DropdownMenuEntry(value: 1, label: firstOption, style: buttonStyle()),
+        DropdownMenuEntry(value: 2, label: secondOption, style: buttonStyle()),
         if (thridption != null)
-          DropdownMenuEntry(
-              value: 3,
-              label: thridption!,
-              style: const ButtonStyle(
-                  textStyle: WidgetStatePropertyAll(
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18)))),
+          DropdownMenuEntry(value: 3, label: thridption!, style: buttonStyle()),
         if (fourthOption != null)
           DropdownMenuEntry(
-              value: 4,
-              label: fourthOption!,
-              style: const ButtonStyle(
-                  textStyle: WidgetStatePropertyAll(
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 18)))),
+              value: 4, label: fourthOption!, style: buttonStyle()),
       ],
     );
+  }
+
+  ButtonStyle buttonStyle() {
+    return const ButtonStyle(
+        textStyle: WidgetStatePropertyAll(
+            TextStyle(fontWeight: FontWeight.bold, fontSize: 18)));
   }
 }

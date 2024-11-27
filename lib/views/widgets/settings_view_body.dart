@@ -1,9 +1,9 @@
+import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
+import 'package:Notes/cubits/change%20theme%20cubit/change_theme_cubit.dart';
+import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/views/widgets/custom_drop_down_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
-import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_cubit.dart';
-import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
-import 'package:notes_app/views/widgets/custom_drop_down_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsViewBody extends StatefulWidget {
@@ -14,8 +14,8 @@ class SettingsViewBody extends StatefulWidget {
 }
 
 class _SettingsViewBodyState extends State<SettingsViewBody> {
-  @override
   int? indexTheme, indexFont, indexLayout;
+  @override
   void initState() {
     super.initState();
     BlocProvider.of<ChangeFontSizeCubit>(context).defaultFont();
@@ -58,13 +58,6 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // const SizedBox(
-          //   height: 55,
-          // ),
-          // const CustomAppBar(
-          //   title: 'My Notes',
-          //   showPrefixIcon: true,
-          // ),
           const SizedBox(
             height: 20,
           ),

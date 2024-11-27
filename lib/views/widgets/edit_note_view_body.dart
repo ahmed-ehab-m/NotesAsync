@@ -1,9 +1,9 @@
+import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
+import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_state.dart';
+import 'package:Notes/models/note_model.dart';
+import 'package:Notes/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
-import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_state.dart';
-import 'package:notes_app/models/note_model.dart';
-import 'package:notes_app/views/widgets/custom_edit_texr_field.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   const EditNoteViewBody({
@@ -59,10 +59,10 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                 const SizedBox(
                   height: 20,
                 ),
-                CustomEditTextField(
+                CustomTextField(
                   fontSize: BlocProvider.of<ChangeFontSizeCubit>(context)
                       .titleFontSize,
-                  // text: widget.noteModel.title,
+                  text: widget.noteModel.title,
                   controller: titleController,
                   color: widget.textFieldColor,
                   onChanged: (value) {
@@ -87,7 +87,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                 const SizedBox(
                   height: 16,
                 ),
-                CustomEditTextField(
+                CustomTextField(
                   fontSize: BlocProvider.of<ChangeFontSizeCubit>(context)
                       .contentFontSize,
                   text: widget.noteModel.subtitle,

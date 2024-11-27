@@ -1,6 +1,6 @@
+import 'package:Notes/views/widgets/custom_app_bar.dart';
+import 'package:Notes/views/widgets/settings_view_body.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/views/widgets/custom_app_bar.dart';
-import 'package:notes_app/views/widgets/settings_view_body.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});

@@ -1,15 +1,15 @@
+import 'package:Notes/constants.dart';
+import 'package:Notes/cubits/add%20note%20cubit/add_note_cubit.dart';
+import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
+import 'package:Notes/cubits/change%20theme%20cubit/change_theme_cubit.dart';
+import 'package:Notes/cubits/change%20theme%20cubit/change_theme_state.dart';
+import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/models/note_model.dart';
+import 'package:Notes/simple_bloc_observer.dart';
+import 'package:Notes/views/notes_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:notes_app/constants.dart';
-import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
-import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
-import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_cubit.dart';
-import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_state.dart';
-import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
-import 'package:notes_app/models/note_model.dart';
-import 'package:notes_app/simple_bloc_observer.dart';
-import 'package:notes_app/views/notes_view.dart';
 
 void main() async {
   Bloc.observer = SimpleBlocOpserver();

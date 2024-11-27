@@ -1,15 +1,15 @@
+import 'package:Notes/constants.dart';
+import 'package:Notes/cubits/add%20note%20cubit/add_note_cubit.dart';
+import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/models/note_model.dart';
+import 'package:Notes/views/widgets/add_note_body.dart';
+import 'package:Notes/views/widgets/colors_list_view.dart';
+import 'package:Notes/views/widgets/custom_app_bar.dart';
+import 'package:Notes/views/widgets/custom_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:intl/intl.dart';
-import 'package:notes_app/constants.dart';
-import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
-import 'package:notes_app/cubits/notes%20cubit/notes_cubit.dart';
-import 'package:notes_app/models/note_model.dart';
-import 'package:notes_app/views/widgets/add_note_body.dart';
-import 'package:notes_app/views/widgets/colors_list_view.dart';
-import 'package:notes_app/views/widgets/custom_app_bar.dart';
-import 'package:notes_app/views/widgets/custom_icon.dart';
 
 class AddNoteView extends StatefulWidget {
   const AddNoteView({super.key});
@@ -28,51 +28,52 @@ class _AddNoteViewState extends State<AddNoteView> {
     setState(() {
       this.title = title;
       this.content = content;
-      print(title);
-      print(content);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        colorIcon: CustomIcon(
-          icon: HugeIcons.strokeRoundedColors,
-          // iconColor: Colors.white,
-          onPressed: () {
-            showModalBottomSheet(
-              barrierColor: Colors.transparent,
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              context: context,
-              builder: (context) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: ColorsListView(
-                    onChangeColor: (color) {
-                      setState(() {
-                        tfColor = color;
-                      });
-                    },
-                  ),
-                );
-              },
-            );
-          },
-        ),
-        checkIcon: CustomIcon(
-          icon: HugeIcons.strokeRoundedCheckmarkSquare04,
-          // iconColor: Colors.white,
-          onPressed: () {
-            validation(context);
-          },
-        ),
-      ),
+      appBar: addNoteAppBar(context),
       body: AddNoteBody(
         formKey: formKey,
         textFieldColor: tfColor,
         onSave: addNoteData,
+      ),
+    );
+  }
+
+  CustomAppBar addNoteAppBar(BuildContext context) {
+    return CustomAppBar(
+      colorIcon: CustomIcon(
+        icon: HugeIcons.strokeRoundedColors,
+        // iconColor: Colors.white,
+        onPressed: () {
+          showModalBottomSheet(
+            barrierColor: Colors.transparent,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (context) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: ColorsListView(
+                  onChangeColor: (color) {
+                    setState(() {
+                      tfColor = color;
+                    });
+                  },
+                ),
+              );
+            },
+          );
+        },
+      ),
+      checkIcon: CustomIcon(
+        icon: HugeIcons.strokeRoundedCheckmarkSquare04,
+        onPressed: () {
+          validation(context);
+        },
       ),
     );
   }

@@ -1,6 +1,6 @@
+import 'package:Notes/constants.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/constants.dart';
 
 class CustomSnackBar {
   SnackBar buildSnackBar({

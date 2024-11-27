@@ -1,7 +1,7 @@
+import 'package:Notes/constants.dart';
+import 'package:Notes/cubits/change%20theme%20cubit/change_theme_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/constants.dart';
-import 'package:notes_app/cubits/change%20theme%20cubit/change_theme_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangeThemeCubit extends Cubit<ChangeThemeState> {

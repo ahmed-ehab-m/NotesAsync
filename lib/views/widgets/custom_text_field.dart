@@ -1,9 +1,9 @@
+import 'package:Notes/constants.dart';
+import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
+import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/constants.dart';
-import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
-import 'package:notes_app/cubits/change%20font%20size%20cubit/change_font_size_state.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
@@ -18,7 +18,8 @@ class CustomTextField extends StatelessWidget {
       // this.autofocus = false,
       this.fontSize,
       this.color,
-      this.focusNode});
+      this.focusNode,
+      this.controller});
 
   final String text;
   final int maxLines;
@@ -31,11 +32,13 @@ class CustomTextField extends StatelessWidget {
   final Color? color;
   final String? Function(String?)? validator;
   final FocusNode? focusNode;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChangeFontSizeCubit, ChangeFontSizeState>(
       builder: (context, state) {
         return TextFormField(
+          controller: controller,
           style: TextStyle(fontSize: fontSize),
           autofocus: false,
           // autofocus: autofocus,
