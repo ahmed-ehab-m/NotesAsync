@@ -29,20 +29,29 @@ class CustomDropdownMenu extends StatelessWidget {
       width: 200,
       initialSelection: initialSelection,
       dropdownMenuEntries: [
-        DropdownMenuEntry(value: 1, label: firstOption, style: buttonStyle()),
-        DropdownMenuEntry(value: 2, label: secondOption, style: buttonStyle()),
+        DropdownMenuEntry(value: 1, label: firstOption, style: buttonStyle(1)),
+        DropdownMenuEntry(value: 2, label: secondOption, style: buttonStyle(2)),
         if (thridption != null)
-          DropdownMenuEntry(value: 3, label: thridption!, style: buttonStyle()),
+          DropdownMenuEntry(
+              value: 3, label: thridption!, style: buttonStyle(3)),
         if (fourthOption != null)
           DropdownMenuEntry(
-              value: 4, label: fourthOption!, style: buttonStyle()),
+              value: 4, label: fourthOption!, style: buttonStyle(4)),
       ],
     );
   }
 
-  ButtonStyle buttonStyle() {
-    return const ButtonStyle(
-        textStyle: WidgetStatePropertyAll(
-            TextStyle(fontWeight: FontWeight.bold, fontSize: 18)));
+  ButtonStyle buttonStyle(int value) {
+    return ButtonStyle(
+      textStyle: const WidgetStatePropertyAll(
+        TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+      ),
+      backgroundColor: WidgetStateProperty.all(
+        value == initialSelection ? Colors.blue.withOpacity(0.3) : null,
+      ),
+      foregroundColor: WidgetStateProperty.all(
+        value == initialSelection ? Colors.blue : null,
+      ),
+    );
   }
 }

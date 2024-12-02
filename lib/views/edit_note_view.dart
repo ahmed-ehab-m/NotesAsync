@@ -54,6 +54,7 @@ class _EditNoteViewState extends State<EditNoteView> {
         // iconColor: Colors.white,
         onPressed: () {
           showModalBottomSheet(
+            // useRootNavigator: true,
             barrierColor: Colors.transparent,
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
@@ -111,11 +112,11 @@ class _EditNoteViewState extends State<EditNoteView> {
           widget.noteModel.subtitle = content ?? widget.noteModel.subtitle;
           widget.noteModel.color = tfColor?.value ?? widget.noteModel.color;
           await widget.noteModel.save();
+
           // ignore: use_build_context_synchronously
           BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-          // ignore: use_build_context_synchronously
+
           Navigator.pop(context);
-          // widget.onSave(widget.noteModel.title, widget.noteModel.subtitle);
         },
       ),
     );

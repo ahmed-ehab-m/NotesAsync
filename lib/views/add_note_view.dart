@@ -94,7 +94,9 @@ class _AddNoteViewState extends State<AddNoteView> {
         color: tfColor?.value ?? kColors[0].value,
         pin: false,
       );
-
+      // if (Navigator.canPop(context)) {
+      //   Navigator.pop(context);
+      // }
       BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
       BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     } else {

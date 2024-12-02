@@ -8,15 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pie_menu/pie_menu.dart';
 
-class NoteItem extends StatelessWidget {
-  const NoteItem({
+class CustomNoteItem extends StatelessWidget {
+  const CustomNoteItem({
     super.key,
     required this.noteModel,
     required this.onPressed,
     required this.onSelectPin,
     required this.status,
     required this.showPin,
-    this.pattern,
     required this.textTitle,
     required this.textSubTitle,
   });
@@ -25,7 +24,7 @@ class NoteItem extends StatelessWidget {
   final dynamic Function() onSelectPin;
   final String status;
   final bool showPin;
-  final String? pattern;
+
   final Widget textTitle;
   final Widget textSubTitle;
 
@@ -33,8 +32,8 @@ class NoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NotesCubit, NotesState>(builder: (context, state) {
-      return BlocProvider.of<NotesCubit>(context).layout
-          ? ListNoteItem(
+      return BlocProvider.of<NotesCubit>(context).layout == 'GridView'
+          ? GridNoteItem(
               noteModel: noteModel,
               textTitle: textTitle,
               textSubTitle: textSubTitle,
@@ -43,7 +42,7 @@ class NoteItem extends StatelessWidget {
               showPin: showPin,
               pieTheme: pieTheme(context),
             )
-          : GridNoteItem(
+          : ListNoteItem(
               noteModel: noteModel,
               textTitle: textTitle,
               textSubTitle: textSubTitle,

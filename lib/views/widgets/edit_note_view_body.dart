@@ -4,6 +4,7 @@ import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   const EditNoteViewBody({
@@ -51,17 +52,27 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<ChangeFontSizeCubit, ChangeFontSizeState>(
       builder: (context, state) {
+        final double screenHeight = MediaQuery.of(context).size.height;
+        final double screenWidth = MediaQuery.of(context).size.width;
+
+        final double contentFontSize =
+            BlocProvider.of<ChangeFontSizeCubit>(context).contentFontSize;
+        final double titleFontSize =
+            BlocProvider.of<ChangeFontSizeCubit>(context).titleFontSize;
+        final double lineHeight = contentFontSize * 2.1;
+        final int maxLines = (screenHeight / lineHeight).floor();
+
+        final double padding = screenWidth * 0.04;
         return SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: padding),
             child: Column(
               children: [
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 20.r,
                 ),
                 CustomTextField(
-                  fontSize: BlocProvider.of<ChangeFontSizeCubit>(context)
-                      .titleFontSize,
+                  fontSize: titleFontSize,
                   text: widget.noteModel.title,
                   controller: titleController,
                   color: widget.textFieldColor,
@@ -72,24 +83,23 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                     );
                   },
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 10.r,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10),
+                  padding: EdgeInsets.only(left: 10.r),
                   child: Row(children: [
                     Text(
                       widget.noteModel.date,
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 12.sp),
                     )
                   ]),
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 10.r,
                 ),
                 CustomTextField(
-                  fontSize: BlocProvider.of<ChangeFontSizeCubit>(context)
-                      .contentFontSize,
+                  fontSize: contentFontSize,
                   text: widget.noteModel.subtitle,
                   color: widget.textFieldColor,
                   controller: contentController,
@@ -98,10 +108,10 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                       content: value,
                     );
                   },
-                  maxLines: 18,
+                  maxLines: maxLines,
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 16.r,
                 ),
               ],
             ),

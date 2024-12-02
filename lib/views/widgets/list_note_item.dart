@@ -1,11 +1,13 @@
+import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/edit_note_view.dart';
+import 'package:Notes/views/widgets/custom_icon.dart';
 import 'package:Notes/views/widgets/custom_snack_bar.dart';
-import 'package:Notes/views/widgets/pin_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:pie_menu/pie_menu.dart';
 
 class ListNoteItem extends StatelessWidget {
@@ -25,79 +27,112 @@ class ListNoteItem extends StatelessWidget {
   final Widget textTitle;
   final Widget textSubTitle;
   final PieTheme? pieTheme;
-
   @override
   Widget build(BuildContext context) {
-    return PieMenu(
-      theme: pieTheme,
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return EditNoteView(
-                noteModel: noteModel,
-              );
-            },
-          ),
-        );
-      },
-      actions: [
-        PieAction(
-            tooltip: Text(status),
-            onSelect: onSelectPin,
-            child: noteModel.pin
-                ? const Icon(HugeIcons.strokeRoundedPinOff)
-                : const Icon(HugeIcons.strokeRoundedPin)),
-        PieAction(
-          tooltip: const Text(
-            'Delete',
-          ),
-          onSelect: () {
-            noteModel.delete();
-            BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                  CustomSnackBar().buildSnackBar(message: 'note deleted'));
-          },
-          child:
-              const Icon(HugeIcons.strokeRoundedDelete02), // Can be any widget
+    return Dismissible(
+      background: Container(
+        decoration: BoxDecoration(
+            color: Colors.red, borderRadius: BorderRadius.circular(16)),
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: const Icon(
+          HugeIcons.strokeRoundedDelete02,
+          color: Colors.white,
+          size: 40,
         ),
-      ],
-      child: Stack(
-        children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-            decoration: BoxDecoration(
-                color: Color(noteModel.color),
-                borderRadius: BorderRadius.circular(16)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                textTitle,
-                Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 10),
-                    child: textSubTitle),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      noteModel.date,
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+      ),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        noteModel.delete();
+        BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+              CustomSnackBar().buildSnackBar(message: 'note deleted'));
+      },
+      key: Key('Key'),
+      child: PieMenu(
+        // theme: pieTheme(context),
+        theme: pieTheme,
+        onPressed: () {
+          Navigator.push(
+              context,
+              PageTransition(
+                  duration: const Duration(milliseconds: 700),
+                  type: PageTransitionType.scale,
+                  alignment: Alignment.center,
+                  child: EditNoteView(
+                    noteModel: noteModel,
+                  )));
+        },
+        actions: [
+          PieAction(
+              tooltip: Text(status),
+              onSelect: onSelectPin,
+              child: noteModel.pin
+                  ? const Icon(HugeIcons.strokeRoundedPinOff)
+                  : const Icon(HugeIcons.strokeRoundedPin)),
+          PieAction(
+            tooltip: const Text(
+              'Delete',
             ),
+            onSelect: () {
+              noteModel.delete();
+              BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                    CustomSnackBar().buildSnackBar(message: 'note deleted'));
+            },
+            child: const Icon(
+                HugeIcons.strokeRoundedDelete02), // Can be any widget
           ),
-          if (showPin) const pinIcon(),
         ],
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              decoration: BoxDecoration(
+                  color: Color(noteModel.color),
+                  borderRadius: BorderRadius.circular(16)),
+              // child: Text('hello'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textTitle,
+                  Padding(
+                      padding:
+                          const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                      child: textSubTitle),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        noteModel.date,
+                        style: const TextStyle(
+                          // color: Colors.white70,
+                          fontSize: 12,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      if (showPin)
+                        CustomIcon(
+                          icon: HugeIcons.strokeRoundedPin,
+                          iconColor: kPrimaryColor,
+                          onPressed: () {},
+                          iconSize: 20,
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

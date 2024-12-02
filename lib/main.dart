@@ -9,6 +9,7 @@ import 'package:Notes/simple_bloc_observer.dart';
 import 'package:Notes/views/notes_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
@@ -47,15 +48,21 @@ class _NotesAppState extends State<NotesApp> {
       ],
       child: BlocBuilder<ChangeThemeCubit, ChangeThemeState>(
         builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              brightness: BlocProvider.of<ChangeThemeCubit>(context).theme,
-              scaffoldBackgroundColor:
-                  BlocProvider.of<ChangeThemeCubit>(context).backgroundColor,
-              fontFamily: 'Poppins',
-            ),
-            home: const NotesView(),
+          return ScreenUtilInit(
+            designSize: Size(411, 915),
+            builder: (context, child) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  brightness: BlocProvider.of<ChangeThemeCubit>(context).theme,
+                  scaffoldBackgroundColor:
+                      BlocProvider.of<ChangeThemeCubit>(context)
+                          .backgroundColor,
+                  fontFamily: 'Poppins',
+                ),
+                home: const NotesView(),
+              );
+            },
           );
         },
       ),

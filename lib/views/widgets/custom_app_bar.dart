@@ -36,18 +36,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
           actions: [
-            pinIcon ?? Icon(null),
-            deleteIcon ?? Icon(null),
-            colorIcon ?? Icon(null),
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: checkIcon ?? Icon(null),
-            ),
+            iconPadding(pinIcon),
+            iconPadding(deleteIcon),
+            iconPadding(colorIcon),
+            iconPadding(checkIcon),
           ],
           backgroundColor:
               BlocProvider.of<ChangeThemeCubit>(context).backgroundColor,
         );
       },
+    );
+  }
+
+  Padding iconPadding(Widget? icon) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 24),
+      child: icon ?? Icon(null),
     );
   }
 

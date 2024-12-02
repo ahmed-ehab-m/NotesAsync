@@ -13,9 +13,9 @@ class NotesCubit extends Cubit<NotesState> {
   List<NoteModel>? notes;
   List<NoteModel>? filteredNotes;
 
-  bool layout = false;
+  String layout = 'GridView';
   changeLayout(int value) {
-    value == 1 ? layout = true : layout = false;
+    value == 1 ? layout = 'GridView' : layout = 'ListView';
   }
 
   Future loadLayout() async {
