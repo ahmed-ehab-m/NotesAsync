@@ -1,5 +1,6 @@
 import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_state.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/widgets/custom_grid_view.dart';
 import 'package:Notes/views/widgets/custom_list_view.dart';
@@ -35,8 +36,8 @@ class _CustomNotesLayoutState extends State<CustomNotesLayout> {
         }
 
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: BlocProvider.of<NotesCubit>(context).layout == 'GridView'
+          padding: ResponsiveSpacing.symmetricPadding(vertical: 16),
+          child: BlocProvider.of<NotesCubit>(context).layout == KGridView
               ? CustomGridView(
                   notes: notes,
                   togglePin: togglePin,
@@ -55,7 +56,9 @@ class _CustomNotesLayoutState extends State<CustomNotesLayout> {
   Widget buildHighlightedText(String text, String type) {
     TextStyle buildTextStyle({Color? color}) {
       return TextStyle(
-          fontSize: type == 'title' ? 26 : 14,
+          fontSize: type == 'title'
+              ? ResponsiveSpacing.fontSize(26)
+              : ResponsiveSpacing.fontSize(14),
           fontWeight: FontWeight.w600,
           color: color);
     }

@@ -1,6 +1,8 @@
 import 'package:Notes/cubits/change%20theme%20cubit/change_theme_cubit.dart';
 import 'package:Notes/cubits/change%20theme%20cubit/change_theme_state.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/cubits/notes%20cubit/notes_state.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/views/widgets/custom_notes_layout.dart';
 import 'package:Notes/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,6 @@ class NotesViewBody extends StatefulWidget {
 class _NotesViewBodyState extends State<NotesViewBody> {
   @override
   void initState() {
-    // TODO: implement initState
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     super.initState();
   }
@@ -31,12 +32,10 @@ class _NotesViewBodyState extends State<NotesViewBody> {
     return BlocBuilder<ChangeThemeCubit, ChangeThemeState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: ResponsiveSpacing.symmetricPadding(horizontal: 16),
           child: ListView(
             children: [
-              const SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: ResponsiveSpacing.horizontal(20)),
               CustomTextField(
                 focusNode: widget.searchFocusNode,
                 color: Color(0x1A9E9E9E),
@@ -53,13 +52,32 @@ class _NotesViewBodyState extends State<NotesViewBody> {
 
                 text: 'Search',
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: ResponsiveSpacing.horizontal(10),
               ),
-              // SizedBox(height: 350, child: CustomPinNotesView()),
-              CustomNotesLayout(
-                pattern: searchPattern,
-              ),
+              BlocBuilder<NotesCubit, NotesState>(builder: (context, state) {
+                return BlocProvider.of<NotesCubit>(context).notes!.isEmpty
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Image.asset(
+                            'assets/images/Add notes-bro (1).png',
+                            height: ResponsiveSpacing.horizontal(500),
+                            width: ResponsiveSpacing.vertical(500),
+                          ),
+                          Text(
+                            'Write your thoughts here…',
+                            style: TextStyle(
+                                fontFamily: 'Making Cookies',
+                                fontSize: 30,
+                                color: Colors.grey),
+                          ),
+                        ],
+                      )
+                    : CustomNotesLayout(
+                        pattern: searchPattern,
+                      );
+              }),
             ],
           ),
         );

@@ -1,5 +1,6 @@
 import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/edit_note_view.dart';
 import 'package:Notes/views/widgets/custom_icon.dart';
@@ -70,28 +71,29 @@ class GridNoteItem extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+            padding: ResponsiveSpacing.allPadding(16),
             decoration: BoxDecoration(
                 color: Color(noteModel.color),
-                borderRadius: BorderRadius.circular(16)),
+                borderRadius:
+                    BorderRadius.circular(ResponsiveSpacing.value(16))),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 textTitle,
                 Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 10),
+                    padding: ResponsiveSpacing.onlyPadding(left: 10, top: 10),
                     child: textSubTitle),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: ResponsiveSpacing.vertical(20),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       noteModel.date,
-                      style: const TextStyle(
+                      style: TextStyle(
                         // color: Colors.white70,
-                        fontSize: 12,
+                        fontSize: ResponsiveSpacing.fontSize(12),
                       ),
                     ),
                   ],
@@ -101,13 +103,13 @@ class GridNoteItem extends StatelessWidget {
           ),
           if (showPin)
             Positioned(
-              right: 45,
-              bottom: 16,
+              right: ResponsiveSpacing.value(45),
+              bottom: ResponsiveSpacing.value(16),
               child: CustomIcon(
                 icon: HugeIcons.strokeRoundedPin,
                 iconColor: kPrimaryColor,
                 onPressed: () {},
-                iconSize: 16,
+                iconSize: ResponsiveSpacing.value(16),
               ),
             ),
         ],

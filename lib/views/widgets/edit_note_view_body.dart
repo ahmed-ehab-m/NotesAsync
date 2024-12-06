@@ -1,10 +1,10 @@
 import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
 import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_state.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditNoteViewBody extends StatefulWidget {
   const EditNoteViewBody({
@@ -53,23 +53,19 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
     return BlocBuilder<ChangeFontSizeCubit, ChangeFontSizeState>(
       builder: (context, state) {
         final double screenHeight = MediaQuery.of(context).size.height;
-        final double screenWidth = MediaQuery.of(context).size.width;
-
         final double contentFontSize =
             BlocProvider.of<ChangeFontSizeCubit>(context).contentFontSize;
         final double titleFontSize =
             BlocProvider.of<ChangeFontSizeCubit>(context).titleFontSize;
         final double lineHeight = contentFontSize * 2.1;
         final int maxLines = (screenHeight / lineHeight).floor();
-
-        final double padding = screenWidth * 0.04;
         return SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: padding),
+            padding: ResponsiveSpacing.symmetricPadding(horizontal: 16),
             child: Column(
               children: [
                 SizedBox(
-                  height: 20.r,
+                  height: ResponsiveSpacing.value(20),
                 ),
                 CustomTextField(
                   fontSize: titleFontSize,
@@ -84,19 +80,20 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                   },
                 ),
                 SizedBox(
-                  height: 10.r,
+                  height: ResponsiveSpacing.horizontal(10),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 10.r),
+                  padding: ResponsiveSpacing.onlyPadding(left: 10),
                   child: Row(children: [
                     Text(
                       widget.noteModel.date,
-                      style: TextStyle(fontSize: 12.sp),
+                      style:
+                          TextStyle(fontSize: ResponsiveSpacing.fontSize(12)),
                     )
                   ]),
                 ),
                 SizedBox(
-                  height: 10.r,
+                  height: ResponsiveSpacing.horizontal(10),
                 ),
                 CustomTextField(
                   fontSize: contentFontSize,
@@ -111,7 +108,7 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                   maxLines: maxLines,
                 ),
                 SizedBox(
-                  height: 16.r,
+                  height: ResponsiveSpacing.horizontal(16),
                 ),
               ],
             ),

@@ -1,10 +1,12 @@
+import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
 import 'package:Notes/cubits/change%20theme%20cubit/change_theme_cubit.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/helper/responsive.dart';
+import 'package:Notes/helper/shared_preference.dart';
 import 'package:Notes/views/widgets/custom_drop_down_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsViewBody extends StatefulWidget {
   const SettingsViewBody({super.key});
@@ -23,59 +25,61 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
   }
 
   Future<void> loadInitialIndex() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      indexTheme = prefs.getInt('themeIndex') ?? 3;
-      indexFont = prefs.getInt('fontIndex') ?? 2;
-      indexLayout = prefs.getInt('layoutIndex') ?? 1;
-    });
+    indexTheme = await SharedPreferencesHelper.getInt(KThemeKey) ?? 3;
+    indexFont = await SharedPreferencesHelper.getInt(KFontKey) ?? 2;
+    indexLayout = await SharedPreferencesHelper.getInt(KLayoutKey) ?? 1;
+    setState(() {});
   }
 
   Future<void> saveThemeIndex(int value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('themeIndex', value);
+    await SharedPreferencesHelper.setInt(KThemeKey, value);
   }
 
   Future<void> saveFontIndex(int value) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setInt('fontIndex', value);
-    print("Font index saved: $value");
+    await SharedPreferencesHelper.setInt(KFontKey, value);
   }
 
   Future<void> saveLayoutIndex(int value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('layoutIndex', value);
+    await SharedPreferencesHelper.setInt(KLayoutKey, value);
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-      ),
+      padding: ResponsiveSpacing.symmetricPadding(horizontal: 16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: ResponsiveSpacing.horizontal(10),
           ),
-          const Text(
-            'Style',
+          Text(
+            'Settings',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: ResponsiveSpacing.fontSize(30),
             ),
           ),
+          SizedBox(
+            height: ResponsiveSpacing.horizontal(40),
+          ),
+          Text(
+            'Style',
+            style: TextStyle(
+                fontSize: ResponsiveSpacing.fontSize(16),
+                color: Color.fromARGB(255, 137, 136, 150)),
+          ),
           const Divider(),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: ResponsiveSpacing.horizontal(20),
           ),
           if (indexFont != null)
             Row(children: [
-              const Text(
+              Text(
                 'Font Size',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: ResponsiveSpacing.fontSize(18),
+                    fontWeight: FontWeight.bold),
               ),
               const Spacer(),
               CustomDropdownMenu(
@@ -94,16 +98,18 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                 fourthOption: 'Huge',
               ),
             ]),
-          const SizedBox(
-            height: 40,
+          SizedBox(
+            height: ResponsiveSpacing.horizontal(20),
           ),
           if (indexTheme !=
               null) /////////to return to index value to see it again /////////////
             Row(
               children: [
-                const Text(
+                Text(
                   'Theme',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: ResponsiveSpacing.fontSize(18),
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 CustomDropdownMenu(
@@ -122,15 +128,17 @@ class _SettingsViewBodyState extends State<SettingsViewBody> {
                     thridption: 'Default'),
               ],
             ),
-          const SizedBox(
-            height: 40,
+          SizedBox(
+            height: ResponsiveSpacing.horizontal(20),
           ),
           if (indexLayout != null)
             Row(
               children: [
-                const Text(
+                Text(
                   'Layout',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: ResponsiveSpacing.fontSize(18),
+                      fontWeight: FontWeight.bold),
                 ),
                 const Spacer(),
                 CustomDropdownMenu(

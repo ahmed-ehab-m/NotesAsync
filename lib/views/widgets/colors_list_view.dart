@@ -1,5 +1,6 @@
 import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/add%20note%20cubit/add_note_cubit.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/views/widgets/color_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,11 +21,12 @@ class _ColorsListViewState extends State<ColorsListView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 140,
+      height: ResponsiveSpacing.horizontal(140),
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 8),
+            padding: ResponsiveSpacing.symmetricPadding(
+                horizontal: 6.0, vertical: 8),
             child: GestureDetector(
               onTap: () {
                 currentIndex = index;

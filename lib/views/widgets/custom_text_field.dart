@@ -1,6 +1,7 @@
 import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_cubit.dart';
 import 'package:Notes/cubits/change%20font%20size%20cubit/change_font_size_state.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,11 +52,6 @@ class CustomTextField extends StatelessWidget {
           maxLines: maxLines,
           decoration: InputDecoration(
             fillColor: color,
-            // fillColor: color == null ??
-            //         BlocProvider.of<ChangeThemeCubit>(context).theme ==
-            //             Brightness.light
-            //     ? Colors.grey[500]!.withOpacity(0.3)
-            //     : Color(0x1A9E9E9E),
             filled: true,
             prefixIcon: showIcon
                 ? IconButton(
@@ -63,12 +59,11 @@ class CustomTextField extends StatelessWidget {
                     icon: Icon(CupertinoIcons.search))
                 : null,
             hintText: text,
-            hintStyle: TextStyle(fontSize: fontSize ?? 16),
+            hintStyle:
+                TextStyle(fontSize: fontSize ?? ResponsiveSpacing.fontSize(16)),
             border: buildBorder(),
             enabledBorder: buildBorder(),
-            focusedBorder: buildBorder(
-              kSecondaryColor,
-            ),
+            focusedBorder: buildBorder(Colors.grey),
           ),
         );
       },
@@ -77,7 +72,7 @@ class CustomTextField extends StatelessWidget {
 
   OutlineInputBorder buildBorder([color]) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(15),
+      borderRadius: BorderRadius.circular(ResponsiveSpacing.value(15)),
       borderSide: BorderSide.none,
     );
   }

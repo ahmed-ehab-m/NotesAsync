@@ -59,7 +59,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/app_icon_1024x1024.png"
+  image_path: "assets/images/appIcon.png"
   
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -98,6 +98,9 @@ flutter:
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins-Regular.ttf
+    - family: Making Cookies
+      fonts:
+        - asset: assets/fonts/Making Cookies.otf
        
   #
   # For details regarding fonts from package dependencies,

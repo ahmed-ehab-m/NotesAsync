@@ -32,7 +32,7 @@ class CustomNoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NotesCubit, NotesState>(builder: (context, state) {
-      return BlocProvider.of<NotesCubit>(context).layout == 'GridView'
+      return BlocProvider.of<NotesCubit>(context).layout == KGridView
           ? GridNoteItem(
               noteModel: noteModel,
               textTitle: textTitle,

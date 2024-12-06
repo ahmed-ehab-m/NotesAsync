@@ -1,4 +1,5 @@
 import 'package:Notes/constants.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/views/add_note_view.dart';
 import 'package:Notes/views/settings_view.dart';
 import 'package:Notes/views/widgets/custom_app_bar.dart';
@@ -40,24 +41,28 @@ class _NotesViewState extends State<NotesView> {
           body: NotesViewBody(
             searchFocusNode: _searchFocusNode,
           ),
-          floatingActionButton: FloatingActionButton(
-            elevation: 0,
-            shape: const CircleBorder(),
-            backgroundColor: kPrimaryColor,
-            onPressed: () {
-              _searchFocusNode.unfocus();
+          floatingActionButton: Transform.scale(
+            scale: 1.2,
+            child: FloatingActionButton(
+              elevation: 0,
+              shape: const CircleBorder(),
+              backgroundColor: kPrimaryColor,
+              onPressed: () {
+                _searchFocusNode.unfocus();
 
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      duration: const Duration(milliseconds: 600),
-                      type: PageTransitionType.scale,
-                      alignment: Alignment.bottomRight,
-                      child: const AddNoteView()));
-            },
-            child: const Icon(
-              FontAwesomeIcons.plus,
-              color: Colors.white,
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        duration: const Duration(milliseconds: 600),
+                        type: PageTransitionType.scale,
+                        alignment: Alignment.bottomRight,
+                        child: const AddNoteView()));
+              },
+              child: Icon(
+                FontAwesomeIcons.plus,
+                color: Colors.white,
+                size: ResponsiveSpacing.value(30),
+              ),
             ),
           ),
         ),

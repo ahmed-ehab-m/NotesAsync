@@ -1,5 +1,6 @@
 import 'package:Notes/cubits/change%20theme%20cubit/change_theme_cubit.dart';
 import 'package:Notes/cubits/change%20theme%20cubit/change_theme_state.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,7 +34,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           // leading: backIcon,
           title: Text(
             title ?? '',
-            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: ResponsiveSpacing.fontSize(30),
+            ),
           ),
           actions: [
             iconPadding(pinIcon),
@@ -50,7 +53,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Padding iconPadding(Widget? icon) {
     return Padding(
-      padding: const EdgeInsets.only(right: 24),
+      padding: ResponsiveSpacing.onlyPadding(right: 24),
       child: icon ?? Icon(null),
     );
   }

@@ -28,7 +28,7 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
 
   Future loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedTheme = prefs.getInt('themeType') ?? 3;
+    final savedTheme = prefs.getInt(KThemeKey) ?? 3;
     changeTheme(savedTheme, save: false);
   }
 
@@ -52,7 +52,7 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
     emit(ChangeThemeSuccess());
     if (save) {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt('themeType', themeType);
+      await prefs.setInt(KThemeKey, themeType);
     }
   }
 }

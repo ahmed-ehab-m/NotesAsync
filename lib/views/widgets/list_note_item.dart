@@ -1,5 +1,6 @@
 import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/edit_note_view.dart';
 import 'package:Notes/views/widgets/custom_icon.dart';
@@ -32,13 +33,14 @@ class ListNoteItem extends StatelessWidget {
     return Dismissible(
       background: Container(
         decoration: BoxDecoration(
-            color: Colors.red, borderRadius: BorderRadius.circular(16)),
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(ResponsiveSpacing.value(16))),
         alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: const Icon(
+        padding: ResponsiveSpacing.symmetricPadding(horizontal: 20),
+        child: Icon(
           HugeIcons.strokeRoundedDelete02,
           color: Colors.white,
-          size: 40,
+          size: ResponsiveSpacing.value(40),
         ),
       ),
       direction: DismissDirection.endToStart,
@@ -93,38 +95,39 @@ class ListNoteItem extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+              padding: ResponsiveSpacing.allPadding(16),
               decoration: BoxDecoration(
                   color: Color(noteModel.color),
-                  borderRadius: BorderRadius.circular(16)),
+                  borderRadius: BorderRadius.circular(
+                    ResponsiveSpacing.value(16),
+                  )),
               // child: Text('hello'),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   textTitle,
                   Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                      padding: ResponsiveSpacing.onlyPadding(
+                          left: 10, top: 10, bottom: 10),
                       child: textSubTitle),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         noteModel.date,
-                        style: const TextStyle(
-                          // color: Colors.white70,
-                          fontSize: 12,
+                        style: TextStyle(
+                          fontSize: ResponsiveSpacing.fontSize(12),
                         ),
                       ),
                       SizedBox(
-                        width: 10,
+                        width: ResponsiveSpacing.vertical(10),
                       ),
                       if (showPin)
                         CustomIcon(
                           icon: HugeIcons.strokeRoundedPin,
                           iconColor: kPrimaryColor,
                           onPressed: () {},
-                          iconSize: 20,
+                          iconSize: ResponsiveSpacing.value(20),
                         ),
                     ],
                   ),

@@ -1,3 +1,4 @@
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/widgets/custom_note_item.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class CustomListView extends StatelessWidget {
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
+          padding: ResponsiveSpacing.symmetricPadding(vertical: 4),
           child: CustomNoteItem(
             noteModel: notes[index],
             onPressed: () => togglePin(index),

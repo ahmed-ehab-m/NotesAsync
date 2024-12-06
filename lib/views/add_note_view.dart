@@ -1,6 +1,7 @@
 import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/add%20note%20cubit/add_note_cubit.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/helper/validation.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/widgets/add_note_body.dart';
 import 'package:Notes/views/widgets/colors_list_view.dart';
@@ -72,7 +73,8 @@ class _AddNoteViewState extends State<AddNoteView> {
       checkIcon: CustomIcon(
         icon: HugeIcons.strokeRoundedCheckmarkSquare04,
         onPressed: () {
-          validation(context);
+          Validation.formValidation(context, formKey,
+              title: title, tfColor: tfColor, content: content);
         },
       ),
     );
@@ -81,9 +83,6 @@ class _AddNoteViewState extends State<AddNoteView> {
   void validation(BuildContext context) {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-
-      print('Title: $title, Content: $content'); // التحقق من القيم
-
       var currnetDate = DateTime.now();
       var formattedCurrntDate =
           DateFormat('MMM dd hh:mm a').format(currnetDate);
@@ -94,13 +93,17 @@ class _AddNoteViewState extends State<AddNoteView> {
         color: tfColor?.value ?? kColors[0].value,
         pin: false,
       );
-      // if (Navigator.canPop(context)) {
-      //   Navigator.pop(context);
-      // }
       BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
       BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     } else {
-      autovalidateMode = AutovalidateMode.always;
+      // عرض SnackBar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please enter some data!'),
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      // autovalidateMode = AutovalidateMode.always;
       setState(() {});
     }
   }

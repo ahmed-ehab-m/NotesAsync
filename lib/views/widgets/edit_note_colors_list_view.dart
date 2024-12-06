@@ -1,4 +1,5 @@
 import 'package:Notes/constants.dart';
+import 'package:Notes/helper/responsive.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/widgets/color_item.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,12 @@ class _EditNoteColorsListViewState extends State<EditNoteColorsListView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 140,
+      height: ResponsiveSpacing.horizontal(140),
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 8),
+            padding: ResponsiveSpacing.symmetricPadding(
+                horizontal: 6.0, vertical: 8),
             child: GestureDetector(
               onTap: () {
                 currentIndex = index;

@@ -13,14 +13,14 @@ class NotesCubit extends Cubit<NotesState> {
   List<NoteModel>? notes;
   List<NoteModel>? filteredNotes;
 
-  String layout = 'GridView';
+  String layout = KGridView;
   changeLayout(int value) {
-    value == 1 ? layout = 'GridView' : layout = 'ListView';
+    value == 1 ? layout = KGridView : layout = KListView;
   }
 
   Future loadLayout() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedLayout = prefs.getInt('layoutIndex') ?? 1;
+    final savedLayout = prefs.getInt(KLayoutKey) ?? 1;
     changeLayout(savedLayout);
   }
 
@@ -28,7 +28,6 @@ class NotesCubit extends Cubit<NotesState> {
     var notesBox = Hive.box<NoteModel>(kNotesBox);
     notes = notesBox.values.toList();
     notes!.sort((a, b) {
-      // فرز حسب pin ثم التاريخ
       int pinComparison = (b.pin ? 1 : 0) - (a.pin ? 1 : 0);
       if (pinComparison == 0) {
         return b.date.compareTo(a.date);
