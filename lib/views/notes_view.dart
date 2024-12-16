@@ -42,7 +42,7 @@ class _NotesViewState extends State<NotesView> {
             searchFocusNode: _searchFocusNode,
           ),
           floatingActionButton: Transform.scale(
-            scale: 1.2,
+            scale: 1.1,
             child: FloatingActionButton(
               elevation: 0,
               shape: const CircleBorder(),

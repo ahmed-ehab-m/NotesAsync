@@ -11,6 +11,11 @@ class Validation {
       {String? title, String? content, Color? tfColor}) {
     var currnetDate = DateTime.now();
     var formattedCurrntDate = DateFormat('MMM dd hh:mm a').format(currnetDate);
+    if ((title == null || title.isEmpty) &&
+        (content == null || content.isEmpty)) {
+      Navigator.pop(context);
+      return;
+    }
     var noteModel = NoteModel(
       title: title == null || title.isEmpty ? 'Untitled' : title,
       subtitle: content!,
@@ -24,15 +29,21 @@ class Validation {
 
   static void editFormValidation(BuildContext context, NoteModel note,
       {String? title, String? content, Color? tfColor}) async {
-    if (note.subtitle.isEmpty &&
+    // تحديث القيم الافتراضية
+    note.title = title == null || title.isEmpty ? 'Untitled' : title;
+    note.subtitle = content == null || content.isEmpty ? 'No Text' : content;
+    note.color = tfColor?.value ?? note.color;
+
+    // التحقق بعد التحديث
+    if ((note.subtitle.isEmpty || note.subtitle == 'No Text') &&
         (note.title.isEmpty || note.title == 'Untitled')) {
       note.delete();
       BlocProvider.of<NotesCubit>(context).fetchAllNotes();
       Navigator.pop(context);
+      return; // التأكد من الخروج بعد الحذف
     }
-    note.title = title == null || title.isEmpty ? 'Untitled' : title;
-    note.subtitle = content ?? note.subtitle;
-    note.color = tfColor?.value ?? note.color;
+
+    // إذا لم يتم الحذف، احفظ التغييرات
     await note.save();
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     Navigator.pop(context);

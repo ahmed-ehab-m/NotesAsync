@@ -88,13 +88,13 @@ class _AddNoteFormState extends State<AddNoteForm> {
                 ),
                 SizedBox(height: ResponsiveSpacing.horizontal(10)),
                 CustomTextField(
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Field is Required';
-                    } else {
-                      return null;
-                    }
-                  },
+                  // validator: (value) {
+                  //   if (value?.isEmpty ?? true) {
+                  //     return 'Field is Required';
+                  //   } else {
+                  //     return null;
+                  //   }
+                  // },
                   fontSize: BlocProvider.of<ChangeFontSizeCubit>(context)
                       .contentFontSize,
                   color: widget.textFieldColor,
