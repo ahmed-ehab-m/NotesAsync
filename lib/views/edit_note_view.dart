@@ -1,5 +1,6 @@
 import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
+import 'package:Notes/helper/validation.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/widgets/custom_app_bar.dart';
 import 'package:Notes/views/widgets/custom_icon.dart';
@@ -108,15 +109,8 @@ class _EditNoteViewState extends State<EditNoteView> {
         icon: HugeIcons.strokeRoundedCheckmarkSquare04,
         // iconColor: Colors.white,
         onPressed: () async {
-          widget.noteModel.title = title ?? widget.noteModel.title;
-          widget.noteModel.subtitle = content ?? widget.noteModel.subtitle;
-          widget.noteModel.color = tfColor?.value ?? widget.noteModel.color;
-          await widget.noteModel.save();
-
-          // ignore: use_build_context_synchronously
-          BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-
-          Navigator.pop(context);
+          Validation.editFormValidation(context, widget.noteModel,
+              title: title, content: content, tfColor: tfColor);
         },
       ),
     );

@@ -70,7 +70,9 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
                 CustomTextField(
                   fontSize: titleFontSize,
                   text: widget.noteModel.title,
-                  controller: titleController,
+                  controller: widget.noteModel.title == 'Untitled'
+                      ? null
+                      : titleController,
                   color: widget.textFieldColor,
                   onChanged: (value) {
                     // title = value;
