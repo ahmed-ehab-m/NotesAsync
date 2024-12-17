@@ -1,6 +1,7 @@
 import 'package:Notes/constants.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_cubit.dart';
 import 'package:Notes/cubits/notes%20cubit/notes_state.dart';
+import 'package:Notes/helper/pie_theme.dart';
 import 'package:Notes/models/note_model.dart';
 import 'package:Notes/views/widgets/grid_note_item.dart';
 import 'package:Notes/views/widgets/list_note_item.dart';
@@ -40,7 +41,8 @@ class CustomNoteItem extends StatelessWidget {
               onSelectPin: onSelectPin,
               status: status,
               showPin: showPin,
-              pieTheme: pieTheme(context),
+              // pieTheme: pieTheme(context),
+              pieTheme: PieThNoteeme.pieTheme(context, noteModel.color),
             )
           : ListNoteItem(
               noteModel: noteModel,
@@ -49,7 +51,7 @@ class CustomNoteItem extends StatelessWidget {
               onSelectPin: onSelectPin,
               status: status,
               showPin: showPin,
-              pieTheme: pieTheme(context),
+              pieTheme: PieThNoteeme.pieTheme(context, noteModel.color),
             );
     });
   }

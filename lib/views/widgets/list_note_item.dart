@@ -55,7 +55,6 @@ class ListNoteItem extends StatelessWidget {
       },
       key: Key('Key'),
       child: PieMenu(
-        // theme: pieTheme(context),
         theme: pieTheme,
         onPressed: () {
           Navigator.push(
@@ -127,7 +126,7 @@ class ListNoteItem extends StatelessWidget {
                           icon: HugeIcons.strokeRoundedPin,
                           iconColor: kPrimaryColor,
                           onPressed: () {},
-                          iconSize: ResponsiveSpacing.value(20),
+                          iconSize: ResponsiveSpacing.value(15),
                         ),
                     ],
                   ),
