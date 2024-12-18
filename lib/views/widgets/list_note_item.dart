@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pie_menu/pie_menu.dart';
+import 'package:uuid/uuid.dart';
 
 class ListNoteItem extends StatelessWidget {
   const ListNoteItem(
@@ -53,7 +54,9 @@ class ListNoteItem extends StatelessWidget {
           ..showSnackBar(
               CustomSnackBar().buildSnackBar(message: 'note deleted'));
       },
-      key: Key('Key'),
+      key: Key(
+        Uuid().v4(),
+      ),
       child: PieMenu(
         theme: pieTheme,
         onPressed: () {
