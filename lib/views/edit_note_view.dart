@@ -16,17 +16,19 @@ class EditNoteView extends StatefulWidget {
     super.key,
     required this.noteModel,
   });
+
   final NoteModel noteModel;
-  // final void Function(String? title, String? content) onSave;
 
   @override
   State<EditNoteView> createState() => _EditNoteViewState();
 }
 
 class _EditNoteViewState extends State<EditNoteView> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? title;
   String? content;
   Color? tfColor;
+
   void updateNoteData({String? title, String? content}) {
     setState(() {
       this.title = title;
@@ -39,6 +41,7 @@ class _EditNoteViewState extends State<EditNoteView> {
     return Scaffold(
       appBar: editNoteAppBar(context),
       body: EditNoteViewBody(
+        formKey: formKey,
         initialTitle: widget.noteModel.title,
         initialContent: widget.noteModel.subtitle,
         noteModel: widget.noteModel,
@@ -52,17 +55,15 @@ class _EditNoteViewState extends State<EditNoteView> {
     return CustomAppBar(
       colorIcon: CustomIcon(
         icon: HugeIcons.strokeRoundedColors,
-        // iconColor: Colors.white,
         onPressed: () {
           showModalBottomSheet(
-            // useRootNavigator: true,
             barrierColor: Colors.transparent,
             isScrollControlled: true,
             backgroundColor: Colors.transparent,
             context: context,
             builder: (context) {
               return Padding(
-                padding: EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: EditNoteColorsListView(
                   noteModel: widget.noteModel,
                   onChangeColor: (color) {
@@ -93,7 +94,6 @@ class _EditNoteViewState extends State<EditNoteView> {
       ),
       deleteIcon: CustomIcon(
         icon: HugeIcons.strokeRoundedDelete02,
-        // iconColor: Colors.white,
         onPressed: () {
           widget.noteModel.delete();
           BlocProvider.of<NotesCubit>(context).fetchAllNotes();
@@ -107,10 +107,15 @@ class _EditNoteViewState extends State<EditNoteView> {
       ),
       checkIcon: CustomIcon(
         icon: HugeIcons.strokeRoundedCheckmarkSquare04,
-        // iconColor: Colors.white,
         onPressed: () async {
-          Validation.editFormValidation(context, widget.noteModel,
-              title: title, content: content, tfColor: tfColor);
+          if (formKey.currentState!.validate()) {
+            formKey.currentState!.save();
+            Validation.editNoteFormValidation(context,
+                noteModel: widget.noteModel,
+                content: content,
+                tfColor: tfColor,
+                title: title);
+          }
         },
       ),
     );

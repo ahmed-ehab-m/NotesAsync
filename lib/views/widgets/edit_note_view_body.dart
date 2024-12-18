@@ -14,11 +14,15 @@ class EditNoteViewBody extends StatefulWidget {
     required this.initialTitle,
     required this.initialContent,
     required this.textFieldColor,
+    required this.formKey,
   });
+
   final NoteModel noteModel;
   final String initialTitle;
   final String initialContent;
   final Color textFieldColor;
+  final GlobalKey<FormState> formKey;
+
   final void Function({
     String? title,
     String? content,
@@ -35,13 +39,14 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
   String? title;
   String? content;
 
+  @override
   void initState() {
     super.initState();
-
     titleController = TextEditingController(text: widget.initialTitle);
     contentController = TextEditingController(text: widget.initialContent);
   }
 
+  @override
   void dispose() {
     titleController.dispose();
     contentController.dispose();
@@ -59,60 +64,63 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             BlocProvider.of<ChangeFontSizeCubit>(context).titleFontSize;
         final double lineHeight = contentFontSize * 2.1;
         final int maxLines = (screenHeight / lineHeight).floor();
+
         return SingleChildScrollView(
           child: Padding(
             padding: ResponsiveSpacing.symmetricPadding(horizontal: 16),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: ResponsiveSpacing.value(20),
-                ),
-                CustomTextField(
-                  fontSize: titleFontSize,
-                  text: widget.noteModel.title,
-                  controller: widget.noteModel.title == 'Untitled'
-                      ? null
-                      : titleController,
-                  color: widget.textFieldColor,
-                  onChanged: (value) {
-                    // title = value;
-                    widget.onSave!(
-                      title: value,
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: ResponsiveSpacing.horizontal(10),
-                ),
-                Padding(
-                  padding: ResponsiveSpacing.onlyPadding(left: 10),
-                  child: Row(children: [
-                    Text(
-                      widget.noteModel.date,
-                      style:
-                          TextStyle(fontSize: ResponsiveSpacing.fontSize(12)),
-                    )
-                  ]),
-                ),
-                SizedBox(
-                  height: ResponsiveSpacing.horizontal(10),
-                ),
-                CustomTextField(
-                  fontSize: contentFontSize,
-                  text: widget.noteModel.subtitle,
-                  color: widget.textFieldColor,
-                  controller: contentController,
-                  onChanged: (value) {
-                    widget.onSave!(
-                      content: value,
-                    );
-                  },
-                  maxLines: maxLines,
-                ),
-                SizedBox(
-                  height: ResponsiveSpacing.horizontal(16),
-                ),
-              ],
+            child: Form(
+              key: widget.formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: ResponsiveSpacing.value(20),
+                  ),
+                  CustomTextField(
+                    fontSize: titleFontSize,
+                    text: widget.noteModel.title,
+                    controller: widget.noteModel.title == 'Untitled'
+                        ? null
+                        : titleController,
+                    color: widget.textFieldColor,
+                    onChanged: (value) {
+                      title = value;
+                      widget.onSave!(title: value, content: content);
+                    },
+                  ),
+                  SizedBox(
+                    height: ResponsiveSpacing.horizontal(10),
+                  ),
+                  Padding(
+                    padding: ResponsiveSpacing.onlyPadding(left: 10),
+                    child: Row(children: [
+                      Text(
+                        widget.noteModel.date,
+                        style:
+                            TextStyle(fontSize: ResponsiveSpacing.fontSize(12)),
+                      )
+                    ]),
+                  ),
+                  SizedBox(
+                    height: ResponsiveSpacing.horizontal(10),
+                  ),
+                  CustomTextField(
+                    fontSize: contentFontSize,
+                    text: widget.noteModel.subtitle,
+                    color: widget.textFieldColor,
+                    controller: widget.noteModel.subtitle == 'No Text'
+                        ? null
+                        : contentController,
+                    onChanged: (value) {
+                      content = value;
+                      widget.onSave!(content: content, title: title);
+                    },
+                    maxLines: maxLines,
+                  ),
+                  SizedBox(
+                    height: ResponsiveSpacing.horizontal(16),
+                  ),
+                ],
+              ),
             ),
           ),
         );

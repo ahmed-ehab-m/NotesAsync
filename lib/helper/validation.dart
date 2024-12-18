@@ -18,7 +18,7 @@ class Validation {
     }
     var noteModel = NoteModel(
       title: title == null || title.isEmpty ? 'Untitled' : title,
-      subtitle: content!,
+      subtitle: content == null || content.isEmpty ? 'No Text' : content,
       date: formattedCurrntDate,
       color: tfColor?.value ?? kColors[0].value,
       pin: false,
@@ -27,24 +27,43 @@ class Validation {
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
   }
 
-  static void editFormValidation(BuildContext context, NoteModel note,
-      {String? title, String? content, Color? tfColor}) async {
-    // تحديث القيم الافتراضية
-    note.title = title == null || title.isEmpty ? 'Untitled' : title;
-    note.subtitle = content == null || content.isEmpty ? 'No Text' : content;
-    note.color = tfColor?.value ?? note.color;
+  static void editNoteFormValidation(BuildContext context,
+      {NoteModel? noteModel,
+      String? title,
+      String? content,
+      Color? tfColor}) async {
+    String noteTitle() {
+      if (title == null) {
+        return noteModel!.title;
+      }
 
-    // التحقق بعد التحديث
-    if ((note.subtitle.isEmpty || note.subtitle == 'No Text') &&
-        (note.title.isEmpty || note.title == 'Untitled')) {
-      note.delete();
-      BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-      Navigator.pop(context);
-      return; // التأكد من الخروج بعد الحذف
+      if (title!.isEmpty) {
+        return 'Untitled';
+      } else
+        return title!;
     }
 
-    // إذا لم يتم الحذف، احفظ التغييرات
-    await note.save();
+    String noteContent() {
+      if (content == null) {
+        return noteModel!.subtitle;
+      }
+
+      if (content!.isEmpty) {
+        return 'No Text';
+      } else
+        return content!;
+    }
+
+    noteModel!.title = noteTitle();
+    noteModel.subtitle = noteContent();
+    noteModel.color = tfColor?.value ?? noteModel.color;
+    if (noteModel.title == 'Untitled' && noteModel.subtitle == 'No Text') {
+      noteModel.delete();
+      BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+      Navigator.pop(context);
+      return;
+    }
+    await noteModel.save();
     BlocProvider.of<NotesCubit>(context).fetchAllNotes();
     Navigator.pop(context);
   }
