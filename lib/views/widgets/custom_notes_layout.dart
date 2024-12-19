@@ -43,13 +43,15 @@ class _CustomNotesLayoutState extends State<CustomNotesLayout> {
                   notes: notes,
                   togglePin: togglePin,
                   buildHighlightedText:
-                      BuildHighlightedText(widget.pattern).highlightedText,
+                      BuildHighlightedText(widget.pattern, context)
+                          .highlightedText,
                 )
               : CustomListView(
                   notes: notes,
                   togglePin: togglePin,
                   buildHighlightedText:
-                      BuildHighlightedText(widget.pattern).highlightedText,
+                      BuildHighlightedText(widget.pattern, context)
+                          .highlightedText,
                 ),
         );
       },

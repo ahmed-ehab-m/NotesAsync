@@ -14,14 +14,16 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
   Brightness theme = Brightness.dark;
   Color? backgroundColor = Colors.white;
   Color circleColor = kPrimaryColor;
+  Color? highlightedTextColor = Colors.white;
   Brightness defaultTheme() {
     if (hour >= 5 && hour < 17) {
       backgroundColor = Colors.white;
-      circleColor = kPrimaryColor;
+      highlightedTextColor = Colors.black;
       return Brightness.light;
     } else {
-      circleColor = kPrimaryColor;
       backgroundColor = Colors.black;
+      highlightedTextColor = Colors.white;
+
       return Brightness.dark;
     }
   }
@@ -37,12 +39,14 @@ class ChangeThemeCubit extends Cubit<ChangeThemeState> {
       case 1:
         theme = Brightness.light;
         backgroundColor = Colors.white;
-        circleColor = kPrimaryColor;
+        highlightedTextColor = Colors.black;
+
         break;
       case 2:
         theme = Brightness.dark;
         backgroundColor = Colors.black;
-        circleColor = kPrimaryColor;
+        highlightedTextColor = Colors.white;
+
         break;
       case 3:
         theme = defaultTheme();

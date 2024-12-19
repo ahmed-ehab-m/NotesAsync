@@ -1,10 +1,13 @@
 import 'package:Notes/constants.dart';
+import 'package:Notes/cubits/change%20theme%20cubit/change_theme_cubit.dart';
 import 'package:Notes/helper/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BuildHighlightedText {
-  BuildHighlightedText(this.pattern);
+  BuildHighlightedText(this.pattern, this.context);
   final String? pattern;
+  final BuildContext context;
   Widget highlightedText(
     String text,
     String type,
@@ -43,7 +46,9 @@ class BuildHighlightedText {
       if (match.start != lastMatchEnd) {
         spans.add(TextSpan(
           text: text.substring(lastMatchEnd, match.start),
-          style: buildTextStyle(),
+          style: buildTextStyle(
+              color: BlocProvider.of<ChangeThemeCubit>(context)
+                  .highlightedTextColor),
         ));
       }
       spans.add(
@@ -59,7 +64,9 @@ class BuildHighlightedText {
       spans.add(
         TextSpan(
           text: text.substring(lastMatchEnd),
-          style: buildTextStyle(),
+          style: buildTextStyle(
+              color: BlocProvider.of<ChangeThemeCubit>(context)
+                  .highlightedTextColor),
         ),
       );
     }
