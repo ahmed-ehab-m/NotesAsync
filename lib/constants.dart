@@ -19,7 +19,7 @@ const double KFontLargeContent = 30;
 const double KFontHugeContent = 40;
 
 const List<Color> kColors = [
-  Color(0x1A9E9E9E),
+  Color(0x339E9E9E),
   Color(0xCCDBCF96),
   Color(0xCC9B1D20),
   Color(0xCC8B5FBF),

@@ -38,7 +38,7 @@ class _NotesViewBodyState extends State<NotesViewBody> {
               SizedBox(height: ResponsiveSpacing.horizontal(20)),
               CustomTextField(
                 focusNode: widget.searchFocusNode,
-                color: Color(0x1A9E9E9E),
+                color: Color(0x269E9E9E),
                 showIcon: true,
                 onChanged: (value) {
                   setState(() {
