@@ -20,7 +20,7 @@ Flutter: For building a cross-platform, high-performance user interface.
 BLoC (Cubit): For state management.
 Hive: For local data storage.
 Shared Preferences: For saving user preferences like theme and font size.
-## demo video 
+## Demo video 
 
 
 https://github.com/user-attachments/assets/cf7e4688-fec5-4722-944e-ed3f44c1fef6
