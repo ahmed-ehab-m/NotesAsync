@@ -23,8 +23,7 @@ Shared Preferences: For saving user preferences like theme and font size.
 ## demo video 
 
 
-Uploading notesApp.mp4…
-
+https://github.com/user-attachments/assets/cf7e4688-fec5-4722-944e-ed3f44c1fef6
 
 ## 📸 Screenshots
 
