@@ -15,13 +15,18 @@ Dynamic Themes: Switch between light and dark modes for a personalized experienc
 Font Size Adjustment: Choose the font size that works best for you.
 Layout Options: Toggle between GridView and ListView to suit your preference.
 Fully Responsive: Works seamlessly on devices of all sizes.
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 Flutter: For building a cross-platform, high-performance user interface.
 BLoC (Cubit): For state management.
 Hive: For local data storage.
 Shared Preferences: For saving user preferences like theme and font size.
+## demo video 
 
-📸 Screenshots
+
+Uploading notesApp.mp4…
+
+
+## 📸 Screenshots
 
 ![Screenshot (6)](https://github.com/user-attachments/assets/a3f3dd39-3fab-401a-86ad-86acfa35689c)
 ![Screenshot (17)](https://github.com/user-attachments/assets/1aa941fb-ca70-42fa-8c00-3ea3e7d37f89)
