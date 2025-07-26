@@ -1,5 +1,4 @@
-# notes_app
-
+# Notes Async
 A modern, responsive, and feature-rich notes application designed to help you organize your thoughts, ideas, and tasks efficiently
 
 
